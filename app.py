@@ -71,7 +71,7 @@ if st.button("Ejecutar Bot"):
           # wallet_data = response.get('data', {}).get('wallet', [])
           # columns = ['id', 'name', 'available', 'frozen', 'total']
           # wallet = pd.DataFrame(wallet_data, columns=columns)
-            break
+          break
         else:
             time.sleep(0.000001)  # Sleep for a short duration before checking again
 
