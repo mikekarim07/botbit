@@ -123,6 +123,7 @@ with tab2:
   st.write(total_available)
   
   if st.button("Vender: "+ symbol_wallet):
+    st.write("Vendiendo a valor de mercado")
     # spotapi.post_submit_order(symbol="CHONKY_USDT", side="sell", type="market", qty=total_available)
   
   
