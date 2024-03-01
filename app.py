@@ -20,7 +20,7 @@ df = df.sort_values(by='Symbols')
 hours_df = pd.DataFrame({'Hour': [str(i).zfill(2) for i in range(25)]})
 minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3, col4, col5 = st.columns(5)
 
 with col1:
   st.caption("Crypto")
@@ -39,7 +39,11 @@ with col3:
 
 with col4:
   st.caption("Minuto")
-  minuto = st.selectbox("Selecciona el minuto", minutes_df)  
+  minuto = st.selectbox("Selecciona el minuto", minutes_df)
+
+with col5:
+  st.caption("Monto de Inversión en USDT")
+  monto_usdt = st.text_input("Monto en USDT con , para separación de miles")  
 
 target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
 target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.006000', '%Y-%m-%d %H:%M:%S.%f')
