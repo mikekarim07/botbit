@@ -33,22 +33,29 @@ with col2:
   month = selected_date.month
   day = selected_date.day
 
+with col3:
+  st.caption("Hora")
+  hora = st.selectbox("Selecciona la hora", hours_df)  
 
+with col4:
+  st.caption("Minuto")
+  minuto = st.selectbox("Selecciona el minuto", minutes_df)  
 
+st.subheader("Parametros elegidos"
 st.write("Moneda seleccionada :" + symbol)
-
-
-hora = st.selectbox("Selecciona la hora", hours_df)
-minuto = st.selectbox("Selecciona el minuto", minutes_df)
-
-target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
-target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.006000', '%Y-%m-%d %H:%M:%S.%f')
-
 st.write('Ventana de tiempo')
 st.caption('Tiempo inicial')
 st.caption(target_time_low)
 st.caption('Tiempo final')
 st.caption(target_time_high)
+
+
+
+
+
+target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
+target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.006000', '%Y-%m-%d %H:%M:%S.%f')
+
 # target_time_high = datetime.strptime('2024-02-29 18:34:00.006000', '%Y-%m-%d %H:%M:%S.%f')
 # # Specify the target execution time in HH:MM:SS format
 # target_time_low = datetime.strptime('2024-02-29 18:34:00.000000', '%Y-%m-%d %H:%M:%S.%f')
