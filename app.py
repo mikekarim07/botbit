@@ -24,7 +24,7 @@ col1, col2, col3, col4 = st.columns(4)
 
 with col1:
   st.caption("Crypto")
-  symbol = st.selectbox('Selecciona el par', df)
+  selected_symbol = st.selectbox('Selecciona el par', df)
 
 with col2:
   st.caption("Fecha")
@@ -45,7 +45,7 @@ target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day
 target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.006000', '%Y-%m-%d %H:%M:%S.%f')
 
 st.subheader("Parametros elegidos")
-st.write("Moneda seleccionada :" + symbol)
+st.write("Moneda seleccionada :" + selected_symbol)
 st.write('Ventana de tiempo')
 st.caption('Tiempo inicial')
 st.caption(target_time_low)
@@ -57,12 +57,14 @@ st.caption(target_time_high)
 # target_time_low = datetime.strptime('2024-02-29 18:34:00.000000', '%Y-%m-%d %H:%M:%S.%f')
 # target_time_high = datetime.strptime('2024-02-29 18:34:00.006000', '%Y-%m-%d %H:%M:%S.%f')
 
-# while True:
-#     current_time = datetime.now()
+if st.button("Ejecutar Operación"):
+    while True:
+        current_time = datetime.now()
 
-#     # Check if the current time is greater than or equal to the target time
-#     if target_time_low <= current_time <= target_time_high:
-#         spotapi.post_submit_order(symbol="STRK_USDT", side="buy", type="market", notional="7")
-#         break
-#     else:
-#         time.sleep(0.000001)  # Sleep for a short duration before checking again
+        # Check if the current time is greater than or equal to the target time
+        if target_time_low <= current_time <= target_time_high:
+            spotapi.post_submit_order(symbol=selected_symbol, side="buy", type="market", notional="7")
+            st.success("Operación ejecutada con éxito.")
+            break
+        else:
+            time.sleep(0.000001)  # Sleep for a short duration before checking again
