@@ -22,12 +22,15 @@ st.write("Moneda seleccionada :" + symbol)
 
 #----- Creación de los dataframes con las horas y minutos para seleccionar y establecer la ventana de tiempo donde la app va a checar en el horario del sistema para ejecutar la orden de compra
 selected_date = st.date_input("Selecciona una fecha", datetime.now())
+year = selected_date.year
+month = selected_date.month
+day = selected_date.day
 hours_df = pd.DataFrame({'Hour': [str(i).zfill(2) for i in range(25)]})
 minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
 hora = st.selectbox("Selecciona la hora", hours_df)
 minuto = st.selectbox("Selecciona el minuto", minutes_df)
 
-target_time_low = datetime.strptime('2024-02-29 ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
+target_time_low = datetime.strptime(year + '-' + month + '-' + day +' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
 target_time_high = datetime.strptime('2024-02-29 ' + hora + ':' + minuto + ':' + '00.006000', '%Y-%m-%d %H:%M:%S.%f')
 st.write(f'{target_time_low} UTC')
 st.write(target_time_high)
