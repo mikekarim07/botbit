@@ -25,6 +25,8 @@ col1_gral, col2_gral = st.columns([1,3])
 with col1_gral:
   st.caption("Crypto")
   selected_symbol = st.selectbox('Selecciona el par', df)
+  symbol_wallet = selected_symbol.split('_')
+  symbol_wallet = symbol_wallet[0]
 with col2_gral:
   st.write()
 
@@ -57,8 +59,7 @@ with tab1:
     st.caption("Monto")
     monto_usdt = st.text_input("Monto en USDT")  
   
-  symbol_wallet = selected_symbol.split('_')
-  symbol_wallet = symbol_wallet[0]
+  
   
   
   target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
@@ -116,9 +117,11 @@ with tab2:
   wallet[['available', 'total']] = wallet[['available', 'total']].apply(pd.to_numeric)
   st.table(wallet)
   
-  total_available = wallet[wallet['id']=="AMEX"]
+  total_available = wallet[wallet['id']==symbol_wallet]
   total_available = total_available['available'].values[0]
   total_available = str("{:,.2f}".format(total_available))
+  if st.button("Vender: "+ symbol_wallet):
+    # spotapi.post_submit_order(symbol="CHONKY_USDT", side="sell", type="market", qty=total_available)
   
   
   print(total_available)
