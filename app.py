@@ -17,16 +17,20 @@ all_symbols = data_response.get('symbols', [])
 
 df = pd.DataFrame({'Symbols': all_symbols})
 df = df.sort_values(by='Symbols')
+hours_df = pd.DataFrame({'Hour': [str(i).zfill(2) for i in range(25)]})
+minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
+
+
+
+
 symbol = st.selectbox('Selecciona el par', df)
 st.write("Moneda seleccionada :" + symbol)
 
-#----- Creación de los dataframes con las horas y minutos para seleccionar y establecer la ventana de tiempo donde la app va a checar en el horario del sistema para ejecutar la orden de compra
+
 selected_date = st.date_input("Selecciona una fecha", datetime.now())
 year = selected_date.year
 month = selected_date.month
 day = selected_date.day
-hours_df = pd.DataFrame({'Hour': [str(i).zfill(2) for i in range(25)]})
-minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
 hora = st.selectbox("Selecciona la hora", hours_df)
 minuto = st.selectbox("Selecciona el minuto", minutes_df)
 
