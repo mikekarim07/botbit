@@ -28,28 +28,24 @@ with col1_gral:
 with col2_gral:
   st.write()
   
-col1, col2, col3, col4, col5 = st.columns(5)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-  st.caption("Crypto")
-  selected_symbol_2 = st.selectbox('Selecciona el par', df)
-
-with col2:
   st.caption("Fecha")
   selected_date = st.date_input("Selecciona una fecha", datetime.now())
   year = selected_date.year
   month = selected_date.month
   day = selected_date.day
 
-with col3:
+with col2:
   st.caption("Hora")
   hora = st.selectbox("Selecciona la hora", hours_df)  
 
-with col4:
+with col3:
   st.caption("Minuto")
   minuto = st.selectbox("Selecciona el minuto", minutes_df)
 
-with col5:
+with col4:
   st.caption("Monto")
   monto_usdt = st.text_input("Monto en USDT")  
 
