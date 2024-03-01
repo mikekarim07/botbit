@@ -20,11 +20,18 @@ df = df.sort_values(by='Symbols')
 hours_df = pd.DataFrame({'Hour': [str(i).zfill(2) for i in range(25)]})
 minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
 
+
+col1_gral = st.columns(.2)
+with col1_gral
+  st.caption("Crypto")
+  selected_symbol = st.selectbox('Selecciona el par', df)
+
+
 col1, col2, col3, col4, col5 = st.columns(5)
 
 with col1:
   st.caption("Crypto")
-  selected_symbol = st.selectbox('Selecciona el par', df)
+  selected_symbol_2 = st.selectbox('Selecciona el par', df)
 
 with col2:
   st.caption("Fecha")
