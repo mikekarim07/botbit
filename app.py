@@ -20,24 +20,30 @@ df = df.sort_values(by='Symbols')
 hours_df = pd.DataFrame({'Hour': [str(i).zfill(2) for i in range(25)]})
 minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
 
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+  st.caption("Crypto")
+  symbol = st.selectbox('Selecciona el par', df)
+
+with col2:
+  st.caption("Fecha")
+  selected_date = st.date_input("Selecciona una fecha", datetime.now())
+  year = selected_date.year
+  month = selected_date.month
+  day = selected_date.day
 
 
 
-symbol = st.selectbox('Selecciona el par', df)
 st.write("Moneda seleccionada :" + symbol)
 
 
-selected_date = st.date_input("Selecciona una fecha", datetime.now())
-year = selected_date.year
-month = selected_date.month
-day = selected_date.day
 hora = st.selectbox("Selecciona la hora", hours_df)
 minuto = st.selectbox("Selecciona el minuto", minutes_df)
 
 target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
 target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.006000', '%Y-%m-%d %H:%M:%S.%f')
-# target_time_low = datetime.strptime(year + '-' + month + '-' + day +' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
-# target_time_high = datetime.strptime('2024-02-29 ' + hora + ':' + minuto + ':' + '00.006000', '%Y-%m-%d %H:%M:%S.%f')
+
 st.write('Ventana de tiempo')
 st.caption('Tiempo inicial')
 st.caption(target_time_low)
