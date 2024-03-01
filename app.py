@@ -9,7 +9,8 @@ secret_key = "54d2cd2bcaede3c71af75760b9b0095666c06344be86fe0e17c4518bc6ec4e30"
 memo = "NL2"
 spotapi = APISpot(api_key, secret_key, memo, timeout=(3,10))
 
-st.header("Que trampa carnal")
+st.header("Bot Automatico para operación de nuevos listados")
+
 response = spotapi.get_symbols()
 data_response = response[0].get('data', {})
 all_symbols = data_response.get('symbols', [])
@@ -17,7 +18,7 @@ all_symbols = data_response.get('symbols', [])
 df = pd.DataFrame({'Symbols': all_symbols})
 df = df.sort_values(by='Symbols')
 symbol = st.selectbox('Selecciona el par', df)
-
+st.write("Moneda seleccionada :" + symbol
 
 
 
