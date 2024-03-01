@@ -18,7 +18,7 @@ all_symbols = data_response.get('symbols', [])
 df = pd.DataFrame({'Symbols': all_symbols})
 df = df.sort_values(by='Symbols')
 symbol = st.selectbox('Selecciona el par', df)
-st.write("Moneda seleccionada :" + symbol
+st.write("Moneda seleccionada :" + symbol)
 
 
 
