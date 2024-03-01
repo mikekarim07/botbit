@@ -15,6 +15,7 @@ data_response = response[0].get('data', {})
 all_symbols = data_response.get('symbols', [])
 
 df = pd.DataFrame({'Symbols': all_symbols})
+df = df.sort_values(by='Symbols')
 symbol = st.selectbox('Selecciona el par', df)
 
 
