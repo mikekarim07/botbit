@@ -120,8 +120,10 @@ with tab2:
   total_available = wallet[wallet['id']==symbol_wallet]
   total_available = total_available['available'].values[0]
   total_available = str("{:,.2f}".format(total_available))
+  st.write(total_available)
+  
   if st.button("Vender: "+ symbol_wallet):
     # spotapi.post_submit_order(symbol="CHONKY_USDT", side="sell", type="market", qty=total_available)
   
   
-  st.write(total_available)
+  
