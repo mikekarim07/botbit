@@ -7,6 +7,7 @@ import time
 api_key = "d1056b18923ec825c50fe26ee4b0b790add6c406"
 secret_key = "54d2cd2bcaede3c71af75760b9b0095666c06344be86fe0e17c4518bc6ec4e30"
 memo = "NL2"
+spotapi = APISpot(api_key, secret_key, memo, timeout=(3,10))
 
 st.header("Que trampa carnal")
 response = spotapi.get_symbols()
