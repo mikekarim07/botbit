@@ -20,6 +20,14 @@ df = df.sort_values(by='Symbols')
 symbol = st.selectbox('Selecciona el par', df)
 st.write("Moneda seleccionada :" + symbol)
 
+hours_df = pd.DataFrame({'Hour': [str(i).zfill(2) for i in range(25)]})
+
+# Crear DataFrame para los minutos
+minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
+
+st.write(hours_df)
+st.write(minutes_df)
+
 
 
 # spotapi = APISpot(api_key, secret_key, memo, timeout=(3, 10))
