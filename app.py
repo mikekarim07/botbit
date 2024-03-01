@@ -22,7 +22,7 @@ minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
 
 
 col1_gral = st.columns(.2)
-with col1_gral
+with col1_gral:
   st.caption("Crypto")
   selected_symbol = st.selectbox('Selecciona el par', df)
 
