@@ -45,23 +45,19 @@ with col5:
   st.caption("Monto")
   monto_usdt = st.text_input("Monto en USDT")  
 
+symbol_wallet = selected_symbol.split('_')
+symbol_wallet = selected_symbol_parts[0]
+st.write(symbol_wallet)
+
 target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
 target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.006000', '%Y-%m-%d %H:%M:%S.%f')
 
 st.subheader("Parametros elegidos")
 st.write("Moneda seleccionada :" + selected_symbol)
 st.write('Ventana de tiempo')
-st.caption('Tiempo inicial :' + str(target_time_low))
-# st.caption(target_time_low)
-st.caption('Tiempo final :' + str(target_time_high))
-# st.caption(target_time_high)
-st.caption('Monto :' + str(monto_usdt))
-# st.caption(monto_usdt)
-
-# target_time_high = datetime.strptime('2024-02-29 18:34:00.006000', '%Y-%m-%d %H:%M:%S.%f')
-# # Specify the target execution time in HH:MM:SS format
-# target_time_low = datetime.strptime('2024-02-29 18:34:00.000000', '%Y-%m-%d %H:%M:%S.%f')
-# target_time_high = datetime.strptime('2024-02-29 18:34:00.006000', '%Y-%m-%d %H:%M:%S.%f')
+st.caption('Tiempo inicial: ' + str(target_time_low))
+st.caption('Tiempo final: ' + str(target_time_high))
+st.caption('Monto: ' + str(monto_usdt))
 
 if st.button("Ejecutar Bot"):
     while True:
