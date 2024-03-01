@@ -47,7 +47,6 @@ with col5:
 
 symbol_wallet = selected_symbol.split('_')
 symbol_wallet = symbol_wallet[0]
-st.write(symbol_wallet)
 
 target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
 target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.006000', '%Y-%m-%d %H:%M:%S.%f')
@@ -67,12 +66,17 @@ if st.button("Ejecutar Bot"):
         if target_time_low <= current_time <= target_time_high:
           spotapi.post_submit_order(symbol=selected_symbol, side="buy", type="market", notional=monto_usdt)
           st.success("Operación ejecutada con éxito.")
-          # response = spotapi.get_wallet()
-          # if isinstance(response, tuple) and len(response) > 0:
-          #     response = response[0]
-          # wallet_data = response.get('data', {}).get('wallet', [])
-          # columns = ['id', 'name', 'available', 'frozen', 'total']
-          # wallet = pd.DataFrame(wallet_data, columns=columns)
+          
+          response = spotapi.get_wallet()
+          if isinstance(response, tuple) and len(response) > 0:
+              response = response[0]
+          wallet_data = response.get('data', {}).get('wallet', [])
+          columns = ['id', 'name', 'available', 'frozen', 'total']
+          wallet = pd.DataFrame(wallet_data, columns=columns)
+
+          total_available = wallet[wallet['id']==symbol_wallet]
+          total_available = total_available['available'].values[0]
+          
           break
         else:
             time.sleep(0.000001)  # Sleep for a short duration before checking again
