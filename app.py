@@ -26,11 +26,9 @@ minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
 hora = st.selectbox("Selecciona la hora", hours_df)
 minuto = st.selectbox("Selecciona el minuto", minutes_df)
 
-
-
-
-# spotapi = APISpot(api_key, secret_key, memo, timeout=(3, 10))
-
+target_time_low = datetime.strptime('2024-02-29 '+hora'+':'+minuto+'00.000000', '%Y-%m-%d %H:%M:%S.%f')
+st.write(target_time_low)
+# target_time_high = datetime.strptime('2024-02-29 18:34:00.006000', '%Y-%m-%d %H:%M:%S.%f')
 # # Specify the target execution time in HH:MM:SS format
 # target_time_low = datetime.strptime('2024-02-29 18:34:00.000000', '%Y-%m-%d %H:%M:%S.%f')
 # target_time_high = datetime.strptime('2024-02-29 18:34:00.006000', '%Y-%m-%d %H:%M:%S.%f')
