@@ -63,8 +63,14 @@ if st.button("Ejecutar Bot"):
 
         # Check if the current time is greater than or equal to the target time
         if target_time_low <= current_time <= target_time_high:
-            spotapi.post_submit_order(symbol=selected_symbol, side="buy", type="market", notional="7")
-            st.success("Operación ejecutada con éxito.")
+          spotapi.post_submit_order(symbol=selected_symbol, side="buy", type="market", notional="7")
+          st.success("Operación ejecutada con éxito.")
+          # response = spotapi.get_wallet()
+          # if isinstance(response, tuple) and len(response) > 0:
+          #     response = response[0]
+          # wallet_data = response.get('data', {}).get('wallet', [])
+          # columns = ['id', 'name', 'available', 'frozen', 'total']
+          # wallet = pd.DataFrame(wallet_data, columns=columns)
             break
         else:
             time.sleep(0.000001)  # Sleep for a short duration before checking again
