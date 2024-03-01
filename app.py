@@ -21,12 +21,12 @@ hours_df = pd.DataFrame({'Hour': [str(i).zfill(2) for i in range(25)]})
 minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
 
 
-col1_gral = st.columns([1,4])
+col1_gral, col2_gral = st.columns([1,4])
 with col1_gral:
   st.caption("Crypto")
   selected_symbol = st.selectbox('Selecciona el par', df)
-# with col2_gral:
-#   st.write()
+with col2_gral:
+  st.write()
   
 col1, col2, col3, col4, col5 = st.columns(5)
 
