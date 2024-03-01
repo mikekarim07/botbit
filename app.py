@@ -109,7 +109,7 @@ with tab2:
   st.subheader("Valor de la cartera para venta")
     response = spotapi.get_wallet()
     if isinstance(response, tuple) and len(response) > 0:
-        response = response[0]
+      response = response[0]
     wallet_data = response.get('data', {}).get('wallet', [])
     columns = ['id', 'name', 'available', 'frozen', 'total']
     wallet = pd.DataFrame(wallet_data, columns=columns)
