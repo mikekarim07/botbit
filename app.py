@@ -4,8 +4,8 @@ from bitmart.api_spot import APISpot
 from datetime import datetime
 import time
 
-api_key = "d1056b18923ec825c50fe26ee4b0b790add6c406"
-secret_key = "54d2cd2bcaede3c71af75760b9b0095666c06344be86fe0e17c4518bc6ec4e30"
+api_key = ""
+secret_key = ""
 memo = "NL2"
 spotapi = APISpot(api_key, secret_key, memo, timeout=(3,10))
 
@@ -20,13 +20,12 @@ df = df.sort_values(by='Symbols')
 symbol = st.selectbox('Selecciona el par', df)
 st.write("Moneda seleccionada :" + symbol)
 
+#----- Creación de los dataframes con las horas y minutos para seleccionar y establecer la ventana de tiempo donde la app va a checar en el horario del sistema para ejecutar la orden de compra
 hours_df = pd.DataFrame({'Hour': [str(i).zfill(2) for i in range(25)]})
-
-# Crear DataFrame para los minutos
 minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
+hora = st.selectbox("Selecciona la hora")
+minuto = st.selectbox("Selecciona el minuto")
 
-st.write(hours_df)
-st.write(minutes_df)
 
 
 
