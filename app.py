@@ -48,6 +48,7 @@ with col5:
 symbol_wallet = selected_symbol.split('_')
 symbol_wallet = symbol_wallet[0]
 
+
 target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
 target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.006000', '%Y-%m-%d %H:%M:%S.%f')
 
@@ -57,6 +58,7 @@ st.write('Ventana de tiempo')
 st.caption('Tiempo inicial: ' + str(target_time_low))
 st.caption('Tiempo final: ' + str(target_time_high))
 st.caption('Monto: ' + str(monto_usdt))
+st.caption('Simbolo para extraer total de la cartera: ' + symbol_wallet)
 
 if st.button("Ejecutar Bot"):
     while True:
@@ -76,6 +78,7 @@ if st.button("Ejecutar Bot"):
 
           total_available = wallet[wallet['id']==symbol_wallet]
           total_available = total_available['available'].values[0]
+          total_available = "{:,.2f}".format(total_available)
           
           break
         else:
