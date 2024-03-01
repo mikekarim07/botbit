@@ -55,6 +55,8 @@ st.caption('Tiempo inicial')
 st.caption(target_time_low)
 st.caption('Tiempo final')
 st.caption(target_time_high)
+st.caption('Monto')
+st.caption(monto_usdt)
 
 # target_time_high = datetime.strptime('2024-02-29 18:34:00.006000', '%Y-%m-%d %H:%M:%S.%f')
 # # Specify the target execution time in HH:MM:SS format
@@ -67,7 +69,7 @@ if st.button("Ejecutar Bot"):
 
         # Check if the current time is greater than or equal to the target time
         if target_time_low <= current_time <= target_time_high:
-          spotapi.post_submit_order(symbol=selected_symbol, side="buy", type="market", notional="7")
+          spotapi.post_submit_order(symbol=selected_symbol, side="buy", type="market", notional=monto_usdt)
           st.success("Operación ejecutada con éxito.")
           # response = spotapi.get_wallet()
           # if isinstance(response, tuple) and len(response) > 0:
