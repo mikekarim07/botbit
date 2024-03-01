@@ -124,4 +124,4 @@ with tab2:
     # spotapi.post_submit_order(symbol="CHONKY_USDT", side="sell", type="market", qty=total_available)
   
   
-  print(total_available)
+  st.write(total_available)
