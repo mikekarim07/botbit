@@ -57,7 +57,7 @@ st.caption(target_time_high)
 # target_time_low = datetime.strptime('2024-02-29 18:34:00.000000', '%Y-%m-%d %H:%M:%S.%f')
 # target_time_high = datetime.strptime('2024-02-29 18:34:00.006000', '%Y-%m-%d %H:%M:%S.%f')
 
-if st.button("Ejecutar Operación"):
+if st.button("Ejecutar Bot"):
     while True:
         current_time = datetime.now()
 
@@ -69,5 +69,5 @@ if st.button("Ejecutar Operación"):
         else:
             time.sleep(0.000001)  # Sleep for a short duration before checking again
 
-if btn_detener:
-    st.warning("Operación detenida.")
+if st.button("Detener Bot"):
+    st.warning("Bot Detenido")
