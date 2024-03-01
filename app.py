@@ -46,7 +46,7 @@ with col5:
   monto_usdt = st.text_input("Monto en USDT")  
 
 symbol_wallet = selected_symbol.split('_')
-# symbol_wallet = selected_symbol[0]
+symbol_wallet = symbol_wallet[0]
 st.write(symbol_wallet)
 
 target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
