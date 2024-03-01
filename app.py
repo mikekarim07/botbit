@@ -113,8 +113,12 @@ with tab2:
   wallet_data = response.get('data', {}).get('wallet', [])
   columns = ['id', 'name', 'available', 'frozen', 'total']
   wallet = pd.DataFrame(wallet_data, columns=columns)
+  wallet[['available', 'total']] = wallet[['available', 'total']].apply(pd.to_numeric)
   st.table(wallet)
-
-  # total_available = wallet[wallet['id']==symbol_wallet]
-  # total_available = total_available['available'].values[0]
-  # total_available = "{:,.2f}".format(total_available)
+  
+  total_available = wallet[wallet['id']=="AMEX"]
+  total_available = total_available['available'].values[0]
+  total_available = str("{:,.2f}".format(total_available))
+  
+  
+  print(total_available)
