@@ -42,8 +42,8 @@ with col4:
   minuto = st.selectbox("Selecciona el minuto", minutes_df)
 
 with col5:
-  st.caption("Monto de Inversión en USDT")
-  monto_usdt = st.text_input("Monto en USDT con , para separación de miles")  
+  st.caption("Monto")
+  monto_usdt = st.text_input("Monto en USDT")  
 
 target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
 target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.006000', '%Y-%m-%d %H:%M:%S.%f')
