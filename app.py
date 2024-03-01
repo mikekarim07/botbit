@@ -41,7 +41,7 @@ with col4:
   st.caption("Minuto")
   minuto = st.selectbox("Selecciona el minuto", minutes_df)  
 
-st.subheader("Parametros elegidos"
+st.subheader("Parametros elegidos")
 st.write("Moneda seleccionada :" + symbol)
 st.write('Ventana de tiempo')
 st.caption('Tiempo inicial')
