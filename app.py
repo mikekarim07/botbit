@@ -106,5 +106,14 @@ with tab1:
 
 
 with tab2:
-   st.header("A dog")
-   st.image("https://static.streamlit.io/examples/dog.jpg", width=200)
+  st.subheader("Valor de la cartera para venta")
+    response = spotapi.get_wallet()
+    if isinstance(response, tuple) and len(response) > 0:
+        response = response[0]
+    wallet_data = response.get('data', {}).get('wallet', [])
+    columns = ['id', 'name', 'available', 'frozen', 'total']
+    wallet = pd.DataFrame(wallet_data, columns=columns)
+  
+    total_available = wallet[wallet['id']==symbol_wallet]
+    total_available = total_available['available'].values[0]
+    total_available = "{:,.2f}".format(total_available)
