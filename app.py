@@ -30,7 +30,9 @@ minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
 hora = st.selectbox("Selecciona la hora", hours_df)
 minuto = st.selectbox("Selecciona el minuto", minutes_df)
 
-target_time_low = datetime.strptime(year + '-' + month + '-' + day +' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
+target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
+
+# target_time_low = datetime.strptime(year + '-' + month + '-' + day +' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
 target_time_high = datetime.strptime('2024-02-29 ' + hora + ':' + minuto + ':' + '00.006000', '%Y-%m-%d %H:%M:%S.%f')
 st.write(f'{target_time_low} UTC')
 st.write(target_time_high)
