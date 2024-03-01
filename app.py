@@ -68,3 +68,6 @@ if st.button("Ejecutar Operación"):
             break
         else:
             time.sleep(0.000001)  # Sleep for a short duration before checking again
+
+if btn_detener:
+    st.warning("Operación detenida.")
