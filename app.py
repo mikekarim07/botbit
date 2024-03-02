@@ -66,7 +66,8 @@ with tab1:
   target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.006000', '%Y-%m-%d %H:%M:%S.%f')
   
   st.subheader("Parametros elegidos")
-  st.write("Moneda seleccionada :" + selected_symbol)
+  # st.write("Moneda seleccionada :" + selected_symbol)
+  st.write(selected_symbol)
   st.write('Ventana de tiempo')
   st.caption('Tiempo inicial: ' + str(target_time_low))
   st.caption('Tiempo final: ' + str(target_time_high))
