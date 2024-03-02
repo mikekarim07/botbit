@@ -13,7 +13,7 @@ st.header("Bot Automatico para operación de nuevos listados")
 
 codigo = st.text_input('Cual es el apellido de la familia?')
 
-if codigo == codigo_familiar
+if codigo == codigo_familiar:
   st.write('Im good')
 
 response = spotapi.get_symbols()
