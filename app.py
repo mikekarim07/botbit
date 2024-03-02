@@ -11,10 +11,10 @@ spotapi = APISpot(api_key, secret_key, memo, timeout=(3,10))
 
 st.header("Bot Automatico para operación de nuevos listados")
 
-# codigo = st.text_input('Cual es el apellido de la familia?')
+codigo = st.text_input('Cual es el apellido de la familia?')
 
-# if codigo == st.secrets["codigo_familiar"]:
-#   st.write('Im good')
+if codigo == st.secrets["codigo_familiar"]:
+  st.write('Im good')
 
 response = spotapi.get_symbols()
 data_response = response[0].get('data', {})
