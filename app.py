@@ -4,17 +4,17 @@ from bitmart.api_spot import APISpot
 from datetime import datetime
 import time
 
-api_key = "d1056b18923ec825c50fe26ee4b0b790add6c406"
-secret_key = "54d2cd2bcaede3c71af75760b9b0095666c06344be86fe0e17c4518bc6ec4e30"
-memo = "NL2"
+api_key = ""
+secret_key = ""
+memo = ""
 spotapi = APISpot(api_key, secret_key, memo, timeout=(3,10))
 
 st.header("Bot Automatico para operación de nuevos listados")
 
-codigo = st.text_input('Cual es el apellido de la familia?')
+# codigo = st.text_input('Cual es el apellido de la familia?')
 
-if codigo == codigo_familiar:
-  st.write('Im good')
+# if codigo == codigo_familiar:
+#   st.write('Im good')
 
 response = spotapi.get_symbols()
 data_response = response[0].get('data', {})
