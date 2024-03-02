@@ -9,7 +9,7 @@ secret_key = st.secrets["secret_key"]
 memo = st.secrets["memo"]
 spotapi = APISpot(api_key, secret_key, memo, timeout=(3,10))
 
-st.header("Bot Automatico para operación de nuevos listados")
+st.header("Bot Automático para operación de nuevos listados")
 
 codigo = st.text_input('Cual era el verdadero apellido del Papá de mi Papá?', type="password")
 
