@@ -135,11 +135,12 @@ if codigo == st.secrets["codigo_familiar"]:
 
     symbols_in_wallet = wallet['id'].unique()
     symbol_for_sell = st.selectbox('Selecciona el par para vender', symbols_in_wallet)
+    
 
-    # total_available = wallet[wallet['id']==symbol_wallet]
-    # total_available = total_available['available'].values[0]
-    # total_available = str("{:,.2f}".format(total_available))
-    # st.write(total_available)
+    total_available = wallet[wallet['id']==symbol_for_sell]
+    total_available = total_available['available'].values[0]
+    total_available = str("{:,.2f}".format(total_available))
+    st.write(total_available)
 
   # with tab3:
   #   st.subheader("Valor de la cartera")
