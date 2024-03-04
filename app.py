@@ -140,7 +140,9 @@ if codigo == st.secrets["codigo_familiar"]:
     total_available = wallet[wallet['id']==symbol_for_sell]
     total_available = total_available['available'].values[0]
     total_available = str("{:,.2f}".format(total_available))
-    st.write(total_available)
+    st.subheader('total_available of '+ symbol_for_sell)
+# st.subheader('Precio Promedio de compra de '+ selected_symbol)
+
 
   # with tab3:
   #   st.subheader("Valor de la cartera")
