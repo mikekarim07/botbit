@@ -143,7 +143,21 @@ if codigo == st.secrets["codigo_familiar"]:
     total_available = str("{:,.2f}".format(total_available))
     st.subheader('Total disponible de '+ symbol_for_sell)
     st.subheader(total_available)
-# st.subheader('Precio Promedio de compra de '+ selected_symbol)
+    
+    response_1 = spotapi.v4_query_account_trade_list()
+    if isinstance(response_1, tuple) and len(response_1) > 0:
+        response_1 = response_1[0]
+    orders_data_tab2 = response.get('data', {})
+                  
+    orders_tab2 = pd.DataFrame(orders_data_tab2)
+    orders_tab2[['price', 'size', 'notional', 'fee']] = orders_tab2[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
+    orders_tab2 = orders_tab2[(orders['symbol']==symbol_wallet) & (orders_tab2['side']=='buy')]
+    orders_tab2['Total Price'] = orders_tab2['notional'] + orders_tab2['fee']
+    orders_tab2 = orders_tab2.groupby(by=['symbol'], as_index=False).agg({'size': 'sum', 'Total Price': 'sum'})
+    orders_tab2['Precio Prom Compra'] = orders_tab2['Total Price'] / orders_tab2['size']
+    Precio_promedio = orders_tab2['Precio Prom Compra'].values[0]
+    
+    st.subheader('Precio Promedio de compra de '+ symbol_for_sell)
 
 
   # with tab3:
