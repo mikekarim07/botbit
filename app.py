@@ -134,7 +134,7 @@ if codigo == st.secrets["codigo_familiar"]:
     st.dataframe(wallet)
 
     symbols_in_wallet = wallet['id'].unique()
-    symbol_for_sell = st.selectbox('Selecciona el par para vender')
+    symbol_for_sell = st.selectbox('Selecciona el par para vender', symbols_in_wallet)
 
     # total_available = wallet[wallet['id']==symbol_wallet]
     # total_available = total_available['available'].values[0]
