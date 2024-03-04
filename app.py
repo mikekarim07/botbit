@@ -88,6 +88,8 @@ if codigo == st.secrets["codigo_familiar"]:
             if target_time_low <= current_time <= target_time_high:
               spotapi.post_submit_order(symbol=selected_symbol, side="buy", type="market", notional=monto_usdt)
               st.success("Operación ejecutada con éxito.")
+
+              time.sleep(3)
               
               response = spotapi.get_wallet()
               if isinstance(response, tuple) and len(response) > 0:
