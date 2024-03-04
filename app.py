@@ -131,7 +131,7 @@ if codigo == st.secrets["codigo_familiar"]:
     wallet = pd.DataFrame(wallet_data, columns=columns)
     wallet[['available', 'total']] = wallet[['available', 'total']].apply(pd.to_numeric)
     wallet = wallet[wallet['available'] > 0]
-    # wallet = wallet[[
+    wallet = wallet[['id],['total]]
     st.dataframe(wallet)
 
     symbols_in_wallet = wallet['id'].unique()
