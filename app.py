@@ -89,22 +89,22 @@ if codigo == st.secrets["codigo_familiar"]:
               spotapi.post_submit_order(symbol=selected_symbol, side="buy", type="market", notional=monto_usdt)
               st.success("Operación ejecutada con éxito.")
 
-              time.sleep(5)
+              # time.sleep(5)
               
-              response = spotapi.v4_query_account_trade_list()
-              if isinstance(response, tuple) and len(response) > 0:
-                  response = response[0]
-              orders_data = response.get('data', {})
+              # response = spotapi.v4_query_account_trade_list()
+              # if isinstance(response, tuple) and len(response) > 0:
+              #     response = response[0]
+              # orders_data = response.get('data', {})
                             
-              orders = pd.DataFrame(orders_data)
-              orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
-              orders = orders[(orders['symbol']==symbol_wallet) & (orders['side']=='buy')]
-              orders['Total Price'] = orders['notional'] + orders['fee']
-              orders = orders.groupby(by=['symbol'], as_index=False).agg({'size': 'sum', 'Total Price': 'sum'})
-              orders['Precio Prom Compra'] = orders['Total Price'] / orders['size']
-              Precio_promedio = orders['Precio Prom Compra'].values[0]
-              st.subheader('Precio Promedio de compra de '+ selected_symbol)
-              st.subheader(Precio_promedio)
+              # orders = pd.DataFrame(orders_data)
+              # orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
+              # orders = orders[(orders['symbol']==symbol_wallet) & (orders['side']=='buy')]
+              # orders['Total Price'] = orders['notional'] + orders['fee']
+              # orders = orders.groupby(by=['symbol'], as_index=False).agg({'size': 'sum', 'Total Price': 'sum'})
+              # orders['Precio Prom Compra'] = orders['Total Price'] / orders['size']
+              # Precio_promedio = orders['Precio Prom Compra'].values[0]
+              # st.subheader('Precio Promedio de compra de '+ selected_symbol)
+              # st.subheader(Precio_promedio)
               
               # total_purchased = orders['size'].values[0]
 
@@ -159,9 +159,9 @@ if codigo == st.secrets["codigo_familiar"]:
     orders = orders.groupby(by=['symbol'], as_index=False).agg({'size': 'sum', 'Total Price': 'sum'})
     orders['Precio Prom Compra'] = orders['Total Price'] / orders['size']
     Precio_promedio = orders['Precio Prom Compra'].values[0]
-    Precio_promedio = str("{:,.15f}".format(Precio_promedio))
+    Precio_promedio_pantalla = str("{:,.15f}".format(Precio_promedio))
     st.subheader('Precio Promedio de compra de '+ symbol_for_sell)
-    st.subheader(Precio_promedio)
+    st.subheader(Precio_promedio_pantalla)
 
     
       #-----
