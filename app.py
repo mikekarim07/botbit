@@ -153,6 +153,7 @@ if codigo == st.secrets["codigo_familiar"]:
     
     orders = pd.DataFrame(orders_data)
     orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
+    st.dataframe(orders)
     # orders = orders[(orders['symbol']==symbol_for_sell) & (orders['side']=='buy')]
     # orders['Total Price'] = orders['notional'] + orders['fee']
     # orders = orders.groupby(by=['symbol'], as_index=False).agg({'size': 'sum', 'Total Price': 'sum'})
