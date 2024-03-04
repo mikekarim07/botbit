@@ -153,6 +153,7 @@ if codigo == st.secrets["codigo_familiar"]:
     
     orders = pd.DataFrame(orders_data)
     orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
+    orders['symbol'] = orders['symbol'] + '_USDT'
     st.dataframe(orders)
     orders = orders[(orders['symbol']==symbol_for_sell) & (orders['side']=='buy')]
     st.dataframe(orders)
