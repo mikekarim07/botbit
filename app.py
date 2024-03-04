@@ -149,7 +149,8 @@ if codigo == st.secrets["codigo_familiar"]:
     if isinstance(response, tuple) and len(response) > 0:
         response = response[0]
     orders_data = response.get('data', {})
-                  
+    
+    
     orders = pd.DataFrame(orders_data)
     orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
     orders = orders[(orders['symbol']==symbol_wallet) & (orders['side']=='buy')]
@@ -157,8 +158,6 @@ if codigo == st.secrets["codigo_familiar"]:
     orders = orders.groupby(by=['symbol'], as_index=False).agg({'size': 'sum', 'Total Price': 'sum'})
     orders['Precio Prom Compra'] = orders['Total Price'] / orders['size']
     Precio_promedio = orders['Precio Prom Compra'].values[0]
-    st.subheader('Precio Promedio de compra de '+ selected_symbol)
-    st.subheader(Precio_promedio)
       #-----
 
 
