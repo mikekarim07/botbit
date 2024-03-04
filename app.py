@@ -131,7 +131,7 @@ if codigo == st.secrets["codigo_familiar"]:
     wallet = pd.DataFrame(wallet_data, columns=columns)
     wallet[['available', 'total']] = wallet[['available', 'total']].apply(pd.to_numeric)
     wallet = wallet[wallet['available'] > 0]
-    st.dataframe(wallet)
+    st.dataframe(wallet, index=False)
 
     symbols_in_wallet = wallet['id'].unique()
     symbol_for_sell = st.selectbox('Selecciona el par para vender', symbols_in_wallet)
