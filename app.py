@@ -78,8 +78,9 @@ if codigo == st.secrets["codigo_familiar"]:
     st.caption('Tiempo final: ' + str(target_time_high))
     st.caption('Monto: ' + str(monto_usdt))
     st.caption('Simbolo para extraer total de la cartera: ' + symbol_wallet)
-    
-    if st.button("Ejecutar Bot"):
+
+    correr = st.checkbox('Correr bot')
+    if correr:
         while True:
             current_time = datetime.now()
     
