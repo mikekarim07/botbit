@@ -158,7 +158,7 @@ if codigo == st.secrets["codigo_familiar"]:
     orders['Total Price'] = orders['notional'] + orders['fee']
     orders = orders.groupby(by=['symbol'], as_index=False).agg({'size': 'sum', 'Total Price': 'sum'})
     orders['Precio Prom Compra'] = orders['Total Price'] / orders['size']
-    Precio_promedio = orders['Precio Prom Compra'].values[0]
+    Precio_promedio = orders['Precio Prom Compra'].values[0].astype(str)
     st.subheader('Precio Promedio de compra de '+ symbol_for_sell)
     st.subheader(Precio_promedio)
       #-----
