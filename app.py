@@ -153,7 +153,7 @@ if codigo == st.secrets["codigo_familiar"]:
     
     orders = pd.DataFrame(orders_data)
     orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
-    orders = orders[(orders['symbol']==symbol_wallet) & (orders['side']=='buy')]
+    orders = orders[(orders['symbol']==symbol_for_sell) & (orders['side']=='buy')]
     orders['Total Price'] = orders['notional'] + orders['fee']
     orders = orders.groupby(by=['symbol'], as_index=False).agg({'size': 'sum', 'Total Price': 'sum'})
     orders['Precio Prom Compra'] = orders['Total Price'] / orders['size']
