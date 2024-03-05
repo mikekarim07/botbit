@@ -140,9 +140,9 @@ if codigo == st.secrets["codigo_familiar"]:
 
     total_available = wallet[wallet['id']==symbol_for_sell]
     total_available = total_available['available'].values[0]
-    total_available = str("{:,.2f}".format(total_available))
+    total_disponible = str("{:,.2f}".format(total_available))
     st.subheader('Total disponible de '+ symbol_for_sell)
-    st.subheader(total_available)
+    st.subheader(total_disponible)
     
     #----determinar el valor de las ordenes y precio promedio
     response = spotapi.v4_query_account_trade_list()
@@ -165,6 +165,8 @@ if codigo == st.secrets["codigo_familiar"]:
 
     if st.button('Vender'):
       spotapi.post_submit_order(symbol=symbol_for_sell, side="sell", type="market", size=total_available)
+      
+      # spotapi.post_submit_order(symbol=symbol_for_sell, side="sell", type="market", size=
       #-----
 
 
