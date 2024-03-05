@@ -163,7 +163,8 @@ if codigo == st.secrets["codigo_familiar"]:
     st.subheader('Precio Promedio de compra de '+ symbol_for_sell)
     st.subheader(Precio_promedio_pantalla)
 
-    
+    if st.button('Vender'):
+      spotapi.post_submit_order(symbol=selected_symbol, side="sell", type="market", size=total_purchased)
       #-----
 
 
