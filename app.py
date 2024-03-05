@@ -164,7 +164,7 @@ if codigo == st.secrets["codigo_familiar"]:
     st.subheader(Precio_promedio_pantalla)
 
     if st.button('Vender'):
-      spotapi.post_submit_order(symbol=selected_symbol, side="sell", type="market", size=total_purchased)
+      spotapi.post_submit_order(symbol=symbol_for_sell, side="sell", type="market", size=total_available)
       #-----
 
 
