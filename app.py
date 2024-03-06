@@ -19,7 +19,7 @@ if codigo == st.secrets["codigo_familiar"]:
   data_response_symbols = response_symbols[0].get('data', {})
   all_symbols = data_response_symbols.get('symbols', [])
   df_symbols = pd.DataFrame({'Symbols': all_symbols})
-  df_symbols = df.sort_values(by='Symbols')
+  df_symbols = df_symbols.sort_values(by='Symbols')
   st.dataframe(df_symbols)
   # hours_df = pd.DataFrame({'Hour': [str(i).zfill(2) for i in range(25)]})
   # minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
