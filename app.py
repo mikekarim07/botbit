@@ -24,12 +24,12 @@ def orden_compra(symbol, notional):
   # Imprimir la respuesta de la API
   st.write(response)
 
-# Ejemplo de uso de la función
-symbol_ejemplo = 'BTC/USDT'
-side_ejemplo = 'buy'  # Cambiar a 'sell' si es necesario
-notional_ejemplo = 100  # Cambiar al monto deseado
+# # Ejemplo de uso de la función
+# symbol_ejemplo = 'BTC/USDT'
+# side_ejemplo = 'buy'  # Cambiar a 'sell' si es necesario
+# notional_ejemplo = 100  # Cambiar al monto deseado
 
-submit_order(symbol_ejemplo, side_ejemplo, notional_ejemplo)
+# submit_order(symbol_ejemplo, side_ejemplo, notional_ejemplo)
 
 if codigo == st.secrets["codigo_familiar"]:
   #-----Obtener Pares de Cotización
