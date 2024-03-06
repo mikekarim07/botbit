@@ -120,8 +120,13 @@ if codigo == st.secrets["codigo_familiar"]:
                 st.write(current_time)
               # spotapi.post_submit_order(symbol=symbol_for_bot, side="buy", type="market", notional=monto_usdt)
                 st.success("Operación ejecutada con éxito.")
+                            # execute_buy_order(spotAPI)
+                break
+            else:
+                time.sleep(0.000001)  # Sleep for a short duration before checking again
 
-              time.sleep(5)
+
+                # time.sleep(5)
               
   #             response = spotapi.v4_query_account_trade_list()
   #             if isinstance(response, tuple) and len(response) > 0:
