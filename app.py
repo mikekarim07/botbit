@@ -38,7 +38,7 @@ if codigo == st.secrets["codigo_familiar"]:
   
   
   
-  tab1, tab2 = st.tabs(["Orden", "Cartera"])
+  tab1, tab2 = st.tabs(["Compra", "Wallet"])
   
   with tab1:
     st.subheader("Orden de Compra de nuevos pares")
@@ -67,8 +67,8 @@ if codigo == st.secrets["codigo_familiar"]:
     
     
     
-    target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
-    target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.006000', '%Y-%m-%d %H:%M:%S.%f')
+    target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000001', '%Y-%m-%d %H:%M:%S.%f')
+    target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '05.000000', '%Y-%m-%d %H:%M:%S.%f')
     
     st.subheader("Parametros elegidos")
     # st.write("Moneda seleccionada :" + selected_symbol)
@@ -89,26 +89,24 @@ if codigo == st.secrets["codigo_familiar"]:
               spotapi.post_submit_order(symbol=selected_symbol, side="buy", type="market", notional=monto_usdt)
               st.success("Operación ejecutada con éxito.")
 
-              # time.sleep(5)
+              time.sleep(5)
               
-              # response = spotapi.v4_query_account_trade_list()
-              # if isinstance(response, tuple) and len(response) > 0:
-              #     response = response[0]
-              # orders_data = response.get('data', {})
-                            
-              # orders = pd.DataFrame(orders_data)
-              # orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
-              # orders = orders[(orders['symbol']==symbol_wallet) & (orders['side']=='buy')]
-              # orders['Total Price'] = orders['notional'] + orders['fee']
-              # orders = orders.groupby(by=['symbol'], as_index=False).agg({'size': 'sum', 'Total Price': 'sum'})
-              # orders['Precio Prom Compra'] = orders['Total Price'] / orders['size']
-              # Precio_promedio = orders['Precio Prom Compra'].values[0]
-              # st.subheader('Precio Promedio de compra de '+ selected_symbol)
-              # st.subheader(Precio_promedio)
+              response = spotapi.v4_query_account_trade_list()
+              if isinstance(response, tuple) and len(response) > 0:
+                  response = response[0]
+              orders_data = response.get('data', {})
               
-              # total_purchased = orders['size'].values[0]
+              
+              orders = pd.DataFrame(orders_data)
+              orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
+              orders = orders[(orders['symbol']==symbol_wallet) & (orders['side']=='buy')]
+              orders['Total Price'] = orders['notional'] + orders['fee']
+              orders = orders.groupby(by=['symbol'], as_index=False).agg({'size': 'sum', 'Total Price': 'sum'})
+              orders['Precio Prom Compra'] = orders['Total Price'] / orders['size']
+              Precio_promedio = orders['Precio Prom Compra'].values[0]
+              Size = orders['size'].values[0]
 
-              #----vender
+              # ----vender
               # if st.button(""):
               # st.success("")
   
