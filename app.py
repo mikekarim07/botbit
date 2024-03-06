@@ -41,23 +41,11 @@ if codigo == st.secrets["codigo_familiar"]:
   df_symbols = ['Seleccionar'] + df_symbols['Symbols'].tolist()
   
   
-  # #-----Creación de dataframes con horas y minutos para los selectboxes
-  # hours_df = pd.DataFrame({'Hour': [str(i).zfill(2) for i in range(25)]})
-  # minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
-  
-  
-  # # col1_gral, col2_gral = st.columns([1,3])
-  # # with col1_gral:
-  # #   st.caption("Crypto")
-  # #   selected_symbol = st.selectbox('Selecciona el par', df)
-  # #   symbol_wallet = selected_symbol.split('_')
-  # #   symbol_wallet = symbol_wallet[0]
-  # # with col2_gral:
-  # #   st.write()
-  
-  
-  
-  
+  #-----Creación de dataframes con horas y minutos para los selectboxes
+  hours_df = pd.DataFrame({'Hour': [str(i).zfill(2) for i in range(25)]})
+  minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
+
+  #----- Creación de las 2 pestañas
   tab1, tab2 = st.tabs(["Bot de Compra", "Wallet"])
   
   with tab1:
@@ -65,16 +53,14 @@ if codigo == st.secrets["codigo_familiar"]:
     r1c1, r1c2 = st.columns(2)
     with r1c1:
       st.write('Selecciona de la lista el para para operar, en caso de que aun no este listado, no selecciones ninguno e ingresalo manualmente en la casilla de texto que esta a la derecha')
-      symbol_for_bot = st.selectbox('Selecciona el par', df_symbols)
+      symbol_fromlist = st.selectbox('Selecciona el par', df_symbols)
     with r1c2:
-      if symbol_for_bot == 'Seleccionar':
+      if symbol_fromlist == 'Seleccionar':
       # Mostrar el widget de input de texto solo cuando la opción sea "Seleccionar"
         par_manual = st.text_input("Ingresa el par manualmente")
         
-    if symbol_for_bot != 'Seleccionar':
-      symbol_for_bot
-    else:
-      par_manual
+    symbol_for_bot = symbol_fromlist if symbol_fromlist != 'Seleccionar' else par_manual
+    st.write(symbol_for_bot)
     
     
     col1, col2, col3, col4 = st.columns(4)
