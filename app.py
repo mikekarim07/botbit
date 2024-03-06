@@ -102,7 +102,7 @@ if codigo == st.secrets["codigo_familiar"]:
     target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '05.000000', '%Y-%m-%d %H:%M:%S.%f')
     
     st.subheader("Parametros elegidos")
-    # st.write("Moneda seleccionada :" + selected_symbol)
+    # st.write("Par seleccionado :" + symbol_for_bot)
     st.write(selected_symbol)
     st.write('Ventana de tiempo')
     st.caption('Tiempo inicial: ' + str(target_time_low))
