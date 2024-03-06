@@ -72,7 +72,7 @@ if codigo == st.secrets["codigo_familiar"]:
         custom_input = st.text_input("Ingresa el par manualmente")
     if symbol_for_bot == 'Seleccionar':
       st.write(custom_input)
-      else
+    else:
       st.write(symbol_for_bot)
     
     
