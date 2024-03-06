@@ -39,8 +39,8 @@ if codigo == st.secrets["codigo_familiar"]:
   df_symbols = pd.DataFrame({'Symbols': all_symbols})
   df_symbols = df_symbols.sort_values(by='Symbols')
   df_symbols = ['Seleccionar'] + df_symbols['Symbols'].tolist()
-  st.selectbox('Selecciona el par', df_symbols)
-  if selected_pair == 'Seleccionar':
+  symbol_for_bot = st.selectbox('Selecciona el par', df_symbols)
+  if symbol_for_bot == 'Seleccionar':
     # Mostrar el widget de input de texto solo cuando la opción sea "Seleccionar"
     custom_input = st.text_input("Ingresa un valor personalizado:")
   # #-----Creación de dataframes con horas y minutos para los selectboxes
