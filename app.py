@@ -69,11 +69,12 @@ if codigo == st.secrets["codigo_familiar"]:
     with r1c2:
       if symbol_for_bot == 'Seleccionar':
       # Mostrar el widget de input de texto solo cuando la opción sea "Seleccionar"
-        custom_input = st.text_input("Ingresa el par manualmente")
-    if symbol_for_bot == 'Seleccionar':
-      st.write(custom_input)
+        par_manual = st.text_input("Ingresa el par manualmente")
+        
+    if symbol_for_bot != 'Seleccionar':
+      symbol_for_bot
     else:
-      st.write(symbol_for_bot)
+      par_manual
     
     
     col1, col2, col3, col4 = st.columns(4)
