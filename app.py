@@ -4,6 +4,17 @@ from bitmart.api_spot import APISpot
 from datetime import datetime
 import time
 
+st.set_page_config(
+    page_title="Bot para operar en Bitmart",
+    page_icon="📈",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'mailto:miguel.karim@karimortega.com'
+    }
+)
+
+
 api_key = st.secrets["access_key"]
 secret_key = st.secrets["secret_key"]
 memo = st.secrets["memo"]
