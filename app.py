@@ -38,7 +38,7 @@ if codigo == st.secrets["codigo_familiar"]:
   all_symbols = data_response_symbols.get('symbols', [])
   df_symbols = pd.DataFrame({'Symbols': all_symbols})
   df_symbols = df_symbols.sort_values(by='Symbols')
-  df_symbols['Symbols'] = ['Seleccionar'] + df_symbols['Symbols'].tolist()
+  df_symbols = ['Seleccionar'] + df_symbols['Symbols'].tolist()
   st.selectbox('Selecciona el par', df_symbols)
   # #-----Creación de dataframes con horas y minutos para los selectboxes
   # hours_df = pd.DataFrame({'Hour': [str(i).zfill(2) for i in range(25)]})
