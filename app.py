@@ -13,35 +13,57 @@ st.header("Bot Automático para operación de nuevos listados")
 
 codigo = st.text_input('Cual era el verdadero apellido del Papá de mi Papá?', type="password")
 
+#-----Creación de funciones
+import ccxt
+
+def orden_compra(symbol, notional):
+  selected_symbol = symbol
+  monto_usdt = notional
+  # Ejecutar la orden
+  response = spotapi.post_submit_order(symbol=selected_symbol, side="buy", type="market", notional=monto_usdt)
+  # Imprimir la respuesta de la API
+  st.write(response)
+
+# Ejemplo de uso de la función
+symbol_ejemplo = 'BTC/USDT'
+side_ejemplo = 'buy'  # Cambiar a 'sell' si es necesario
+notional_ejemplo = 100  # Cambiar al monto deseado
+
+submit_order(symbol_ejemplo, side_ejemplo, notional_ejemplo)
+
 if codigo == st.secrets["codigo_familiar"]:
-  #Obtener Pares de Cotización
+  #-----Obtener Pares de Cotización
   response_symbols = spotapi.get_symbols()
   data_response_symbols = response_symbols[0].get('data', {})
   all_symbols = data_response_symbols.get('symbols', [])
   df_symbols = pd.DataFrame({'Symbols': all_symbols})
   df_symbols = df_symbols.sort_values(by='Symbols')
-  st.dataframe(df_symbols)
+  df_symbols['Symbols'] = ['Seleccionar'] + df_symbols['Symbols'].tolist()
+  st.selectbox('Selecciona el par', df_symbols)
+  # #-----Creación de dataframes con horas y minutos para los selectboxes
   # hours_df = pd.DataFrame({'Hour': [str(i).zfill(2) for i in range(25)]})
   # minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
   
   
-  # col1_gral, col2_gral = st.columns([1,3])
-  # with col1_gral:
-  #   st.caption("Crypto")
-  #   selected_symbol = st.selectbox('Selecciona el par', df)
-  #   symbol_wallet = selected_symbol.split('_')
-  #   symbol_wallet = symbol_wallet[0]
-  # with col2_gral:
-  #   st.write()
+  # # col1_gral, col2_gral = st.columns([1,3])
+  # # with col1_gral:
+  # #   st.caption("Crypto")
+  # #   selected_symbol = st.selectbox('Selecciona el par', df)
+  # #   symbol_wallet = selected_symbol.split('_')
+  # #   symbol_wallet = symbol_wallet[0]
+  # # with col2_gral:
+  # #   st.write()
   
   
   
   
-  # tab1, tab2 = st.tabs(["Compra", "Wallet"])
+  # tab1, tab2 = st.tabs(["Bot de Compra", "Wallet"])
   
   # with tab1:
-  #   st.subheader("Orden de Compra de nuevos pares")
-  
+  #   st.subheader("Programación de Orden de Compra")
+  #   r1c1, r1c2 = st.columns(2)
+
+    
   #   col1, col2, col3, col4 = st.columns(4)
     
   #   with col1:
