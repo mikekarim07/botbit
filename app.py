@@ -14,7 +14,7 @@ st.header("Bot Automático para operación de nuevos listados")
 codigo = st.text_input('Cual era el verdadero apellido del Papá de mi Papá?', type="password")
 
 #-----Creación de funciones
-import ccxt
+
 
 def orden_compra(symbol, notional):
   selected_symbol = symbol
