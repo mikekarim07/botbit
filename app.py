@@ -67,9 +67,9 @@ if codigo == st.secrets["codigo_familiar"]:
       st.write('Selecciona de la lista el para para operar, en caso de que aun no este listado, no selecciones ninguno e ingresalo manualmente en la casilla de texto que esta a la derecha')
       symbol_for_bot = st.selectbox('Selecciona el par', df_symbols)
     with r1c2:
-    if symbol_for_bot == 'Seleccionar':
-    # Mostrar el widget de input de texto solo cuando la opción sea "Seleccionar"
-      custom_input = st.text_input("Ingresa el par manualmente")
+      if symbol_for_bot == 'Seleccionar':
+      # Mostrar el widget de input de texto solo cuando la opción sea "Seleccionar"
+        custom_input = st.text_input("Ingresa el par manualmente")
     if symbol_for_bot == 'Seleccionar':
       st.write(custom_input)
       else
