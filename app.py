@@ -211,28 +211,28 @@ if codigo == st.secrets["codigo_familiar"]:
   #               time.sleep(0.000001)  # Sleep for a short duration before checking again
     
     
-  # with tab2:
-  #   st.subheader("Activos en cartera")
-  #   response = spotapi.get_wallet()
-  #   if isinstance(response, tuple) and len(response) > 0:
-  #     response = response[0]
-  #   wallet_data = response.get('data', {}).get('wallet', [])
-  #   columns = ['id', 'name', 'available', 'frozen', 'total']
-  #   wallet = pd.DataFrame(wallet_data, columns=columns)
-  #   wallet[['available', 'total']] = wallet[['available', 'total']].apply(pd.to_numeric)
-  #   wallet = wallet[wallet['available'] > 0]
-  #   wallet_for_screen = wallet[['id','total']]
-  #   st.dataframe(wallet_for_screen)
+  with tab2:
+    st.subheader("Activos en cartera")
+    response = spotapi.get_wallet()
+    if isinstance(response, tuple) and len(response) > 0:
+      response = response[0]
+    wallet_data = response.get('data', {}).get('wallet', [])
+    columns = ['id', 'name', 'available', 'frozen', 'total']
+    wallet = pd.DataFrame(wallet_data, columns=columns)
+    wallet[['available', 'total']] = wallet[['available', 'total']].apply(pd.to_numeric)
+    wallet = wallet[wallet['available'] > 0]
+    wallet_for_screen = wallet[['id','total']]
+    st.dataframe(wallet_for_screen)
 
-  #   symbols_in_wallet = wallet['id'].unique()
-  #   symbol_for_sell = st.selectbox('Selecciona el par para vender', symbols_in_wallet)
+    symbols_in_wallet = wallet['id'].unique()
+    symbol_for_sell = st.selectbox('Selecciona el par para vender', symbols_in_wallet)
     
 
-  #   total_available = wallet[wallet['id']==symbol_for_sell]
-  #   total_available = total_available['available'].values[0]
-  #   total_disponible = str("{:,.2f}".format(total_available))
-  #   st.subheader('Total disponible de '+ symbol_for_sell)
-  #   st.subheader(total_disponible)
+    total_available = wallet[wallet['id']==symbol_for_sell]
+    total_available = total_available['available'].values[0]
+    total_disponible = str("{:,.2f}".format(total_available))
+    st.subheader('Total disponible de '+ symbol_for_sell)
+    st.subheader(total_disponible)
     
   #   #----determinar el valor de las ordenes y precio promedio
   #   response = spotapi.v4_query_account_trade_list()
