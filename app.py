@@ -28,20 +28,12 @@ codigo = st.text_input('Cual era el verdadero apellido del Papá de mi Papá?', 
 
 
 def orden_compra(symbol, notional):
-  selected_symbol = symbol
-  monto_usdt = notional
-  # Ejecutar la orden
-  response = spotapi.post_submit_order(symbol=selected_symbol, side="buy", type="market", notional=monto_usdt)
-  # Imprimir la respuesta de la API
-  st.write(response)
-
-# # Ejemplo de uso de la función
-# symbol_ejemplo = 'BTC/USDT'
-# side_ejemplo = 'buy'  # Cambiar a 'sell' si es necesario
-# notional_ejemplo = 100  # Cambiar al monto deseado
-
-# orden_compra(simbolo, notional)
-
+    selected_symbol = symbol
+    monto_usdt = notional
+    # Ejecutar la orden
+    response = spotapi.post_submit_order(symbol=selected_symbol, side="buy", type="market", notional=monto_usdt)
+    # Imprimir la respuesta de la API
+    st.write(response)
 
 def orden_venta(symbol, size):
     selected_symbol = symbol
@@ -235,7 +227,7 @@ if codigo == st.secrets["codigo_familiar"]:
     st.subheader(total_disponible)
 
     if st.button('Vender'):
-      orden_venta(symbol_for_sell, total_available)
+      orden_venta(symbol_for_sell, total_disponible)
 
 
   #   #----determinar el valor de las ordenes y precio promedio
