@@ -226,8 +226,8 @@ if codigo == st.secrets["codigo_familiar"]:
     st.subheader('Total disponible de '+ symbol_for_sell)
     st.subheader(total_disponible)
 
-    if st.button('Vender'):
-      orden_venta(symbol_for_sell, total_disponible)
+    # if st.button('Vender'):
+    #   orden_venta(symbol_for_sell, total_disponible)
 
 
   #   #----determinar el valor de las ordenes y precio promedio
