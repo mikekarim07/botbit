@@ -36,9 +36,9 @@ def orden_compra(symbol, notional):
     st.write(response)
 
 def orden_venta(symbol, size):
-    selected_symbol = symbol
+    selected_symbol_sell = symbol
     total_disponible = size
-    response = spotapi.post_submit_order(symbol=selected_symbol, side="sell", type="market", size=total_disponible)
+    response = spotapi.post_submit_order(symbol=selected_symbol_sell, side="sell", type="market", size=total_disponible)
     st.write(response)
 
 def total_disponible():
@@ -226,7 +226,8 @@ if codigo == st.secrets["codigo_familiar"]:
     st.subheader('Total disponible de '+ symbol_for_sell)
     st.subheader(total_disponible)
     symbol_for_sell = symbol_for_sell + '_USDT'
-
+    st.write(symbol_for_sell)
+      
     if st.button('Vender'):
         orden_venta(symbol_for_sell, total_disponible)
 
