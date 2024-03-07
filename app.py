@@ -134,8 +134,8 @@ if codigo == st.secrets["codigo_familiar"]:
     with col3:
       st.caption("Minuto")
       minuto = st.selectbox("Selecciona el minuto", minutes_df)
-      minuto_final = minuto + 5  
-      st.write(minuto_final)  
+      # minuto_final = minuto + 5  
+      # st.write(minuto_final)  
     with col4:
       st.caption("Monto")
       monto_usdt = st.text_input("Monto en USDT")  
@@ -144,7 +144,7 @@ if codigo == st.secrets["codigo_familiar"]:
     
     
     target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000001', '%Y-%m-%d %H:%M:%S.%f')
-    target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + '05' + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
+    target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
     
     st.subheader("Parametros elegidos")
     # st.write("Par seleccionado :" + symbol_for_bot)
