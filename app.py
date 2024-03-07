@@ -47,6 +47,7 @@ def orden_venta(symbol, size):
     selected_symbol = symbol
     total_disponible = size
     response = spotapi.post_submit_order(symbol=selected_symbol, side="sell", type="market", size=total_disponible)
+    st.write(response)
 
 def total_disponible():
     response = spotapi.get_wallet()
@@ -71,24 +72,24 @@ def total_disponible():
     
     st.dataframe(wallet_for_screen)
     
-def 
+# def 
     
     
     
-    response = spotapi.v4_query_account_trade_list()
-if isinstance(response, tuple) and len(response) > 0:
-  response = response[0]
-orders_data = response.get('data', {})
+#     response = spotapi.v4_query_account_trade_list()
+# if isinstance(response, tuple) and len(response) > 0:
+#   response = response[0]
+# orders_data = response.get('data', {})
 
 
-orders = pd.DataFrame(orders_data)
-orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
-orders = orders[(orders['symbol']==symbol_wallet) & (orders['side']=='buy')]
-orders['Total Price'] = orders['notional'] + orders['fee']
-orders = orders.groupby(by=['symbol'], as_index=False).agg({'size': 'sum', 'Total Price': 'sum'})
-orders['Precio Prom Compra'] = orders['Total Price'] / orders['size']
-Precio_promedio = orders['Precio Prom Compra'].values[0]
-Size = orders['size'].values[0]
+# orders = pd.DataFrame(orders_data)
+# orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
+# orders = orders[(orders['symbol']==symbol_wallet) & (orders['side']=='buy')]
+# orders['Total Price'] = orders['notional'] + orders['fee']
+# orders = orders.groupby(by=['symbol'], as_index=False).agg({'size': 'sum', 'Total Price': 'sum'})
+# orders['Precio Prom Compra'] = orders['Total Price'] / orders['size']
+# Precio_promedio = orders['Precio Prom Compra'].values[0]
+# Size = orders['size'].values[0]
 
 
 
