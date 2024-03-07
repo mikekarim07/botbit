@@ -40,7 +40,7 @@ def orden_compra(symbol, notional):
 # side_ejemplo = 'buy'  # Cambiar a 'sell' si es necesario
 # notional_ejemplo = 100  # Cambiar al monto deseado
 
-# submit_order(symbol_ejemplo, side_ejemplo, notional_ejemplo)
+# orden_compra(simbolo, notional)
 
 
 def orden_venta(symbol, size):
@@ -171,6 +171,7 @@ if codigo == st.secrets["codigo_familiar"]:
             # Check if the current time is greater than or equal to the target time
             if target_time_low <= current_time <= target_time_high:
                 st.write(current_time)
+                orden_compra(symbol_for_bot, monto_usdt)
               # spotapi.post_submit_order(symbol=symbol_for_bot, side="buy", type="market", notional=monto_usdt)
                 st.success("Operación ejecutada con éxito.")
                             # execute_buy_order(spotAPI)
