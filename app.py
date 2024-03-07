@@ -233,7 +233,11 @@ if codigo == st.secrets["codigo_familiar"]:
     total_disponible = str("{:,.2f}".format(total_available))
     st.subheader('Total disponible de '+ symbol_for_sell)
     st.subheader(total_disponible)
-    
+
+    if st.button('Vender'):
+      orden_venta(symbol_for_sell, total_available)
+
+
   #   #----determinar el valor de las ordenes y precio promedio
   #   response = spotapi.v4_query_account_trade_list()
   #   if isinstance(response, tuple) and len(response) > 0:
