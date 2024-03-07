@@ -215,19 +215,20 @@ if codigo == st.secrets["codigo_familiar"]:
     wallet = wallet[wallet['available'] > 0]
     wallet_for_screen = wallet[['id','total']]
     st.dataframe(wallet_for_screen, width=800)
-
+    
     symbols_in_wallet = wallet['id'].unique()
     symbol_for_sell = st.selectbox('Selecciona el par para vender', symbols_in_wallet)
     # symbol_for_sell = symbol_for_sell + '_USDT'
-
+    
     total_available = wallet[wallet['id']==symbol_for_sell]
     total_available = total_available['available'].values[0]
     total_disponible = str("{:,.2f}".format(total_available))
     st.subheader('Total disponible de '+ symbol_for_sell)
     st.subheader(total_disponible)
+    symbol_for_sell = symbol_for_sell + '_USDT'
 
-    # if st.button('Vender'):
-    #   orden_venta(symbol_for_sell, total_disponible)
+      if st.button('Vender'):
+          orden_venta(symbol_for_sell, total_disponible)
 
 
   #   #----determinar el valor de las ordenes y precio promedio
