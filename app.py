@@ -42,6 +42,58 @@ def orden_compra(symbol, notional):
 
 # submit_order(symbol_ejemplo, side_ejemplo, notional_ejemplo)
 
+
+def orden_venta(symbol, size):
+    selected_symbol = symbol
+    total_disponible = size
+    response = spotapi.post_submit_order(symbol=selected_symbol, side="sell", type="market", size=total_disponible)
+
+def total_disponible():
+    response = spotapi.get_wallet()
+    if isinstance(response, tuple) and len(response) > 0:
+        response = response[0]
+    wallet_data = response.get('data', {}).get('wallet', [])
+    columns = ['id', 'name', 'available', 'frozen', 'total']
+    wallet = pd.DataFrame(wallet_data, columns=columns)
+    wallet[['available', 'total']] = wallet[['available', 'total']].apply(pd.to_numeric)
+    wallet = wallet[wallet['available'] > 0]
+    wallet_for_screen = wallet[['id','total']]
+
+    
+    symbols_in_wallet = wallet['id'].unique()
+    symbol_for_sell = st.selectbox('Selecciona el par para vender', symbols_in_wallet)
+    
+    
+    total_available = wallet[wallet['id']==symbol_for_sell]
+    total_available = total_available['available'].values[0]
+    total_disponible = str("{:,.2f}".format(total_available))
+
+    
+    st.dataframe(wallet_for_screen)
+    
+def 
+    
+    
+    
+    response = spotapi.v4_query_account_trade_list()
+if isinstance(response, tuple) and len(response) > 0:
+  response = response[0]
+orders_data = response.get('data', {})
+
+
+orders = pd.DataFrame(orders_data)
+orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
+orders = orders[(orders['symbol']==symbol_wallet) & (orders['side']=='buy')]
+orders['Total Price'] = orders['notional'] + orders['fee']
+orders = orders.groupby(by=['symbol'], as_index=False).agg({'size': 'sum', 'Total Price': 'sum'})
+orders['Precio Prom Compra'] = orders['Total Price'] / orders['size']
+Precio_promedio = orders['Precio Prom Compra'].values[0]
+Size = orders['size'].values[0]
+
+
+
+
+
 if codigo == st.secrets["codigo_familiar"]:
   #-----Obtener Pares de Cotización
   response_symbols = spotapi.get_symbols()
