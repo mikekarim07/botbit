@@ -64,28 +64,6 @@ def total_disponible():
     
     st.dataframe(wallet_for_screen)
     
-# def 
-    
-    
-    
-#     response = spotapi.v4_query_account_trade_list()
-# if isinstance(response, tuple) and len(response) > 0:
-#   response = response[0]
-# orders_data = response.get('data', {})
-
-
-# orders = pd.DataFrame(orders_data)
-# orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
-# orders = orders[(orders['symbol']==symbol_wallet) & (orders['side']=='buy')]
-# orders['Total Price'] = orders['notional'] + orders['fee']
-# orders = orders.groupby(by=['symbol'], as_index=False).agg({'size': 'sum', 'Total Price': 'sum'})
-# orders['Precio Prom Compra'] = orders['Total Price'] / orders['size']
-# Precio_promedio = orders['Precio Prom Compra'].values[0]
-# Size = orders['size'].values[0]
-
-
-
-
 
 if codigo == st.secrets["codigo_familiar"]:
   #-----Obtener Pares de Cotización
@@ -145,7 +123,7 @@ if codigo == st.secrets["codigo_familiar"]:
     
     
     target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000001', '%Y-%m-%d %H:%M:%S.%f')
-    target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '30.000000', '%Y-%m-%d %H:%M:%S.%f')
+    target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + '05' + ':' + '00.000000', '%Y-%m-%d %H:%M:%S.%f')
     
     st.subheader("Parametros elegidos")
     # st.write("Par seleccionado :" + symbol_for_bot)
@@ -171,6 +149,11 @@ if codigo == st.secrets["codigo_familiar"]:
                 break
             else:
                 time.sleep(0.000001)  # Sleep for a short duration before checking again
+    st.subheader('Compra Manual en caso de que no jale la compra automatica')
+    monto_manual = st.text_input('Ingresa el monto en USDT a comprar, por default son 50', '50')
+    st.write('Vas a comprar ' + monto_manual + 'de ' + symbol_for_bot)
+    if st.button('Comprar Manual'):
+      orden_compra(symbol_for_bot, monto_usdt)
 
 
                 # time.sleep(5)
