@@ -64,6 +64,26 @@ def total_disponible():
     
     st.dataframe(wallet_for_screen)
     
+def precio_promedio(symbol)
+    response = spotapi.v4_query_account_trade_list()
+    if isinstance(response, tuple) and len(response) > 0:
+      response = response[0]
+    orders_data = response.get('data', {})
+    
+    
+    orders = pd.DataFrame(orders_data)
+    orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
+    
+    orders = orders[(orders['symbol']==symbol_wallet) & (orders['side']=='buy')]
+    orders['Total Price'] = orders['notional'] + orders['fee']
+    orders = orders.groupby(by=['symbol'], as_index=False).agg({'size': 'sum', 'Total Price': 'sum'})
+    orders['Precio Prom Compra'] = orders['Total Price'] / orders['size']
+    Precio_promedio = orders['Precio Prom Compra'].values[0]
+    Size = orders['size'].values[0]
+
+
+
+
 
 if codigo == st.secrets["codigo_familiar"]:
   #-----Obtener Pares de Cotización
@@ -114,7 +134,8 @@ if codigo == st.secrets["codigo_familiar"]:
     with col3:
       st.caption("Minuto")
       minuto = st.selectbox("Selecciona el minuto", minutes_df)
-    
+      minuto_final = minuto+05  
+      st.write(minuto_final)  
     with col4:
       st.caption("Monto")
       monto_usdt = st.text_input("Monto en USDT")  
