@@ -151,7 +151,7 @@ if codigo == st.secrets["codigo_familiar"]:
                 time.sleep(0.000001)  # Sleep for a short duration before checking again
     st.subheader('Compra Manual en caso de que no jale la compra automatica')
     monto_manual = st.text_input('Ingresa el monto en USDT a comprar, por default son 50', '50')
-    st.write('Vas a comprar ' + monto_manual + 'de ' + symbol_for_bot)
+    st.write('Vas a comprar ' + monto_manual + ' de: ' + symbol_for_bot)
     if st.button('Comprar Manual'):
       orden_compra(symbol_for_bot, monto_usdt)
 
