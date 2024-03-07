@@ -64,7 +64,7 @@ def total_disponible():
     
     st.dataframe(wallet_for_screen)
     
-def precio_promedio(symbol)
+def precio_promedio(symbol):
     response = spotapi.v4_query_account_trade_list()
     if isinstance(response, tuple) and len(response) > 0:
       response = response[0]
