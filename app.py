@@ -134,7 +134,7 @@ if codigo == st.secrets["codigo_familiar"]:
     with col3:
       st.caption("Minuto")
       minuto = st.selectbox("Selecciona el minuto", minutes_df)
-      minuto_final = minuto+05  
+      minuto_final = minuto + 5  
       st.write(minuto_final)  
     with col4:
       st.caption("Monto")
