@@ -218,7 +218,7 @@ if codigo == st.secrets["codigo_familiar"]:
 
     symbols_in_wallet = wallet['id'].unique()
     symbol_for_sell = st.selectbox('Selecciona el par para vender', symbols_in_wallet)
-    symbol_for_sell = symbol_for_sell + '_USDT'
+    # symbol_for_sell = symbol_for_sell + '_USDT'
 
     total_available = wallet[wallet['id']==symbol_for_sell]
     total_available = total_available['available'].values[0]
@@ -226,8 +226,8 @@ if codigo == st.secrets["codigo_familiar"]:
     st.subheader('Total disponible de '+ symbol_for_sell)
     st.subheader(total_disponible)
 
-    if st.button('Vender'):
-      orden_venta(symbol_for_sell, total_disponible)
+    # if st.button('Vender'):
+    #   orden_venta(symbol_for_sell, total_disponible)
 
 
   #   #----determinar el valor de las ordenes y precio promedio
