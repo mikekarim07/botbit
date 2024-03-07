@@ -114,9 +114,10 @@ if codigo == st.secrets["codigo_familiar"]:
   
   with tab1:
     st.subheader("Programación de Orden de Compra")
+    st.write('Selecciona de la lista el para para operar, en caso de que aun no este listado, no selecciones ninguno e ingresalo manualmente en la casilla de texto que esta a la derecha')  
     r1c1, r1c2 = st.columns(2)
     with r1c1:
-      st.write('Selecciona de la lista el para para operar, en caso de que aun no este listado, no selecciones ninguno e ingresalo manualmente en la casilla de texto que esta a la derecha')
+      
       symbol_fromlist = st.selectbox('Selecciona el par', df_symbols)
     with r1c2:
       if symbol_fromlist == 'Seleccionar':
