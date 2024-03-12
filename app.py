@@ -132,8 +132,8 @@ if codigo == st.secrets["codigo_familiar"]:
       st.caption("Monto")
       monto_usdt = st.text_input("Monto en USDT")  
     
-    target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000001', '%Y-%m-%d %H:%M:%S.%f')
-    target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '59.000000', '%Y-%m-%d %H:%M:%S.%f')
+    target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000002', '%Y-%m-%d %H:%M:%S.%f')
+    target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '59.999999', '%Y-%m-%d %H:%M:%S.%f')
     
     st.subheader("Parametros elegidos")
     st.write("Par seleccionado :" + symbol_for_bot)
