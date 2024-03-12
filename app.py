@@ -80,10 +80,6 @@ def precio_promedio(symbol):
     Precio_promedio = orders['Precio Prom Compra'].values[0]
     Size = orders['size'].values[0]
 
-
-
-
-
 if codigo == st.secrets["codigo_familiar"]:
   #-----Obtener Pares de Cotización
   response_symbols = spotapi.get_symbols()
@@ -92,7 +88,6 @@ if codigo == st.secrets["codigo_familiar"]:
   df_symbols = pd.DataFrame({'Symbols': all_symbols})
   df_symbols = df_symbols.sort_values(by='Symbols')
   df_symbols = ['Seleccionar'] + df_symbols['Symbols'].tolist()
-  
   
   #-----Creación de dataframes con horas y minutos para los selectboxes
   hours_df = pd.DataFrame({'Hour': [str(i).zfill(2) for i in range(25)]})
@@ -106,11 +101,9 @@ if codigo == st.secrets["codigo_familiar"]:
     st.write('Selecciona de la lista el para para operar, en caso de que aun no este listado, no selecciones ninguno e ingresalo manualmente en la casilla de texto que esta a la derecha')  
     r1c1, r1c2 = st.columns(2)
     with r1c1:
-      
       symbol_fromlist = st.selectbox('Selecciona el par', df_symbols)
     with r1c2:
       if symbol_fromlist == 'Seleccionar':
-      # Mostrar el widget de input de texto solo cuando la opción sea "Seleccionar"
         par_manual = st.text_input("Ingresa el par manualmente")
         
     symbol_for_bot = symbol_fromlist if symbol_fromlist != 'Seleccionar' else par_manual
@@ -139,14 +132,11 @@ if codigo == st.secrets["codigo_familiar"]:
       st.caption("Monto")
       monto_usdt = st.text_input("Monto en USDT")  
     
-    
-    
-    
     target_time_low = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '00.000001', '%Y-%m-%d %H:%M:%S.%f')
     target_time_high = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto + ':' + '59.000000', '%Y-%m-%d %H:%M:%S.%f')
     
     st.subheader("Parametros elegidos")
-    # st.write("Par seleccionado :" + symbol_for_bot)
+    st.write("Par seleccionado :" + symbol_for_bot)
     st.write(symbol_for_bot)
     st.write('Ventana de tiempo')
     st.caption('Tiempo inicial: ' + str(target_time_low))
