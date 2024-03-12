@@ -212,6 +212,7 @@ if codigo == st.secrets["codigo_familiar"]:
     
   with tab2:
     st.subheader("Activos en cartera")
+    #----- Get Wallet
     response = spotapi.get_wallet()
     if isinstance(response, tuple) and len(response) > 0:
       response = response[0]
@@ -221,6 +222,38 @@ if codigo == st.secrets["codigo_familiar"]:
     wallet[['available', 'total']] = wallet[['available', 'total']].apply(pd.to_numeric)
     wallet = wallet[wallet['available'] > 0]
     wallet_for_screen = wallet[['id','total']]
+
+    #----- Get Orders
+    response_orders = spotapi.v4_query_account_trade_list()
+    if isinstance(response_orders, tuple) and len(response_orders) > 0:
+        response = response_orders[0]
+    orders_data = response.get('data', {})
+    
+    orders = pd.DataFrame(orders_data)
+    orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
+    orders['total'] = orders['notional'] + orders['fee']
+    orders['Precio Prom'] = orders['total'] / orders['size']
+    orders['buy'] = orders.apply(lambda row: row['total'] if row['side'] == 'buy' else 0, axis=1)
+    orders['sell'] = orders.apply(lambda row: row['total'] if row['side'] == 'sell' else 0, axis=1)
+    orders = orders.groupby(by=['symbol'], as_index=False).agg({'buy': 'sum', 'size': 'sum', 'sell': 'sum'})
+    orders['Ut/Perd'] = -orders['buy'] + orders['sell']
+    orders['Precio Prom'] = orders['buy'] / orders['size']
+
+    #----- Cross tables (Wallet & Orders) to get purchase average price
+    wallet_for_screen['id] = wallet_for_screen['id] + '_USDT'
+    wallet_for_screen = wallet_for_screen.merge(orders, left_on="id", right_on='symbol', how='left')
+    
+
+
+      
+    #----- Total Investment
+    # print(orders)
+    # total_investment = orders.copy()
+    # total_investment['Inversion'] = 'Inversión'
+    # total_investment = total_investment.groupby(by=['Inversion'], as_index=False).agg({'buy': 'sum', 'sell': 'sum', 'Ut/Perd': 'sum'})
+    # print(total_investment)
+
+      
     st.dataframe(wallet_for_screen, width=800)
     
     symbols_in_wallet = wallet['id'].unique()
