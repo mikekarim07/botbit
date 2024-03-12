@@ -230,10 +230,10 @@ if codigo == st.secrets["codigo_familiar"]:
     
     orders = pd.DataFrame(orders_data)
     orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
-    orders['total'] = orders['notional'] + orders['fee']
+    orders['total pagado'] = orders['notional'] + orders['fee']
     orders = orders[orders['side']=='buy']
     orders = orders.groupby(by=['symbol'], as_index=False).agg({'total': 'sum', 'size': 'sum'})
-    orders['Precio Prom'] = orders['total'] / orders['size']
+    orders['Precio Prom'] = orders['total pagado'] / orders['size']
     orders['Precio Prom'] = orders['Precio Prom'].apply(lambda x: "{:,.15f}".format(x))
     
     #----- Cross tables (Wallet & Orders) to get purchase average price
