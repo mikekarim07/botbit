@@ -5,7 +5,7 @@ from datetime import datetime
 import time
 
 st.set_page_config(
-    page_title="Bot para operar en Bitmart",
+    page_title="Bot para operar en Bitmart 1.0",
     page_icon="📈",
     layout="wide",
     initial_sidebar_state="expanded",
