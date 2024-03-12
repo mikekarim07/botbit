@@ -243,7 +243,7 @@ if codigo == st.secrets["codigo_familiar"]:
     wallet_for_screen['id'] = wallet_for_screen['id'] + '_USDT'
     
     wallet_for_screen = wallet_for_screen.merge(orders, left_on="id", right_on='symbol', how='left')
-    wallet_for_screen = wallet_for_screen[['id','total, 'Precio Prom']]
+    wallet_for_screen = wallet_for_screen[['id','total', 'Precio Prom']]
     
 
 
