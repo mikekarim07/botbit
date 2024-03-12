@@ -237,11 +237,13 @@ if codigo == st.secrets["codigo_familiar"]:
     orders = orders.groupby(by=['symbol'], as_index=False).agg({'buy': 'sum', 'size': 'sum', 'sell': 'sum'})
     orders['Ut/Perd'] = -orders['buy'] + orders['sell']
     orders['Precio Prom'] = orders['buy'] / orders['size']
+    orders['Precio Prom'] = orders['Precio Prom'].apply(lambda x: "{:,.15f}".format(x))
 
     #----- Cross tables (Wallet & Orders) to get purchase average price
     wallet_for_screen['id'] = wallet_for_screen['id'] + '_USDT'
     
     wallet_for_screen = wallet_for_screen.merge(orders, left_on="id", right_on='symbol', how='left')
+    wallet_for_screen = wallet_for_screen[['id','total, 'Precio Prom']]
     
 
 
