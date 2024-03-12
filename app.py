@@ -241,6 +241,7 @@ if codigo == st.secrets["codigo_familiar"]:
 
     #----- Cross tables (Wallet & Orders) to get purchase average price
     wallet_for_screen['id] = wallet_for_screen['id'] + '_USDT'
+    
     wallet_for_screen = wallet_for_screen.merge(orders, left_on="id", right_on='symbol', how='left')
     
 
