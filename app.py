@@ -240,11 +240,7 @@ if codigo == st.secrets["codigo_familiar"]:
     wallet_for_screen['id'] = wallet_for_screen['id'] + '_USDT'
     
     wallet_for_screen = wallet_for_screen.merge(orders, left_on="id", right_on='symbol', how='left')
-    st.dataframe(wallet_for_screen)
     wallet_for_screen = wallet_for_screen[['id','total', 'Precio Prom']]
-    
-
-
       
     #----- Total Investment
     # print(orders)
@@ -252,8 +248,7 @@ if codigo == st.secrets["codigo_familiar"]:
     # total_investment['Inversion'] = 'Inversión'
     # total_investment = total_investment.groupby(by=['Inversion'], as_index=False).agg({'buy': 'sum', 'sell': 'sum', 'Ut/Perd': 'sum'})
     # print(total_investment)
-
-      
+  
     st.dataframe(wallet_for_screen, width=800)
     
     symbols_in_wallet = wallet['id'].unique()
