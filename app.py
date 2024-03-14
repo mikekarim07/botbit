@@ -261,12 +261,48 @@ if codigo == st.secrets["codigo_familiar"]:
 
   with tab3:
     st.subheader("Estatus financiero de la cartera")
-    wallet_value = wallet_for_screen.copy()
-    symbols_for_tickers = wallet_value['id'].unique()
+    # wallet_value = wallet_for_screen.copy()
+    # symbols_for_tickers = wallet_value['id'].unique()
 
+    # last_prices = []
+    
+    # for symbol in symbols_for_tickers['id']:
+    #     try:
+    #         # Fetch ticker information for the current symbol
+    #         response_tuple = spotapi.get_symbol_ticker(symbol)
+            
+    #         # Check if the response_tuple is not empty
+    #         if response_tuple:
+    #             # Assuming the first element of the tuple is the dictionary containing the response
+    #             response_dict = response_tuple[0]
+                
+    #             # Extract the 'last_price' from the response dictionary
+    #             last_price = response_dict['data']['last_price']
+                
+    #             # Append last price to the list
+    #             last_prices.append(last_price)
+    #         else:
+    #             # If response_tuple is empty, append None
+    #             last_prices.append(None)
+    #     except spotapi.APIException as e:
+    #         print(f"Error fetching data for symbol {symbol}: {e}")
+    #         # If an exception occurs, append None
+    #         last_prices.append(None)
+    
+    # # Add the list of last prices as a new column to the DataFrame
+    # symbols_for_tickers['last_price'] = last_prices
+    # st.write(symbols_for_tickers)
+    
+    
+    
+    # Assuming wallet_for_screen is your DataFrame
+    wallet_value = wallet_for_screen.copy()
+    
+    symbols_for_tickers = wallet_value['id'].unique()
+    
     last_prices = []
     
-    for symbol in symbols_for_tickers['id']:
+    for symbol in symbols_for_tickers:
         try:
             # Fetch ticker information for the current symbol
             response_tuple = spotapi.get_symbol_ticker(symbol)
@@ -290,6 +326,7 @@ if codigo == st.secrets["codigo_familiar"]:
             last_prices.append(None)
     
     # Add the list of last prices as a new column to the DataFrame
-    symbols_for_tickers['last_price'] = last_prices
-    st.write(symbols_for_tickers)
+    wallet_value['last_price'] = last_prices
     
+    # Display the updated DataFrame
+    st.write(wallet_value)
