@@ -262,30 +262,4 @@ if codigo == st.secrets["codigo_familiar"]:
   with tab3:
     st.subheader("Estatus financiero de la cartera")
     wallet_value = wallet_for_screen.copy()
-    symbols_for_tickers = wallet_value['id'].unique()
     
-    last_prices = []
-    
-    for symbol in symbols_for_tickers:
-        try:
-            # Fetch ticker information for the current symbol
-            response_tuple = spotapi.get_symbol_ticker(symbol)
-            
-            # Check if the response_tuple is not empty
-            if response_tuple:
-                # Assuming the first element of the tuple is the dictionary containing the response
-                response_dict = response_tuple[0]
-                
-                # Extract the 'last_price' from the response dictionary
-                last_price = response_dict['data']['last_price']
-                
-                # Append last price to the list
-                last_prices.append(last_price)
-            else:
-                # If response_tuple is empty, append None
-                last_prices.append(None)
-        finally:
-            last_prices.append(None)
-    # Add the list of last prices as a new column to the DataFrame
-    wallet_value['last_price'] = last_prices
-    st.write(wallet_value)
