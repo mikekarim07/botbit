@@ -262,9 +262,9 @@ if codigo == st.secrets["codigo_familiar"]:
   with tab3:
     st.subheader("Estatus financiero de la cartera")
     wallet_value = wallet_for_screen.copy()
-    wallet_value.rename(columns={'id': 'symbol'}, inplace=True)
-    symbols_for_tickers = wallet_value['symbol'].unique()
-    st.dataframe(symbols_for_tickers)
+    
+    st.write(wallet_value)
+
     last_prices = []
     
     for symbol in symbols_for_tickers['value']:
