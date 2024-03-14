@@ -284,7 +284,8 @@ if codigo == st.secrets["codigo_familiar"]:
             else:
                 # If response_tuple is empty, append None
                 last_prices.append(None)
-            
+        finally:
+            last_prices.append(None)
     # Add the list of last prices as a new column to the DataFrame
     wallet_value['last_price'] = last_prices
     st.write(wallet_value)
