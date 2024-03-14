@@ -233,6 +233,7 @@ if codigo == st.secrets["codigo_familiar"]:
     wallet_for_screen = wallet_for_screen[['id','total', 'Precio Prom']]
     wallet_for_screen = wallet_for_screen.fillna(0)
     wallet_for_screen['Precio Prom'] = wallet_for_screen[['Precio Prom']].apply(pd.to_numeric)
+    wallet_for_screen['Precio Prom'] = wallet_for_screen['Precio Prom'].round(15)
     # symbols = 
     # for symbol in df['symbol']:
     #     symbol_info = spotapi.get_symbol_ticker(symbol)
