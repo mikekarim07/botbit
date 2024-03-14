@@ -267,7 +267,7 @@ if codigo == st.secrets["codigo_familiar"]:
     st.dataframe(symbols_for_tickers)
     last_prices = []
     
-    for symbol in symbols_for_tickers['symbol']:
+    for symbol in symbols_for_tickers['value']:
         try:
             # Fetch ticker information for the current symbol
             response_tuple = spotapi.get_symbol_ticker(symbol)
