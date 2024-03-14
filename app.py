@@ -232,15 +232,14 @@ if codigo == st.secrets["codigo_familiar"]:
     wallet_for_screen = wallet_for_screen.merge(orders, left_on="id", right_on='symbol', how='left')
     wallet_for_screen = wallet_for_screen[['id','total', 'Precio Prom']]
     wallet_for_screen = wallet_for_screen.fillna(0)
-    # wallet_for_screen['Inversion'] = wallet_for_screen['total'] * wallet_for_screen['Precio Prom']
+    wallet_for_screen['Precio Prom'] = wallet_for_screen[['Precio Prom']].apply(pd.to_numeric)
+    # symbols = 
+    # for symbol in df['symbol']:
+    #     symbol_info = spotapi.get_symbol_ticker(symbol)
       
-    #----- Total Investment
-    # print(orders)
-    # total_investment = orders.copy()
-    # total_investment['Inversion'] = 'Inversión'
-    # total_investment = total_investment.groupby(by=['Inversion'], as_index=False).agg({'buy': 'sum', 'sell': 'sum', 'Ut/Perd': 'sum'})
-    # print(total_investment)
-  
+      
+      # wallet_for_screen['Inversion'] = wallet_for_screen['total'] * wallet_for_screen['Precio Prom']
+    
     st.dataframe(wallet_for_screen, width=800)
     
     symbols_in_wallet = wallet['id'].unique()
