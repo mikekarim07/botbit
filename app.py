@@ -262,11 +262,12 @@ if codigo == st.secrets["codigo_familiar"]:
   with tab3:
     st.subheader("Estatus financiero de la cartera")
     wallet_value = wallet_for_screen.copy()
-    symbols_for_tickers = wallet_value['id'].unique()
-
+    wallet_value.rename(columns={'id': 'symbol'}, inplace=True)
+    symbols_for_tickers = wallet_value['symbol'].unique()
+    
     last_prices = []
     
-    for id in symbols_for_tickers['symbol']:
+    for symbol in symbols_for_tickers['symbol']:
         try:
             # Fetch ticker information for the current symbol
             response_tuple = spotapi.get_symbol_ticker(symbol)
