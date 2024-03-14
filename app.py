@@ -94,7 +94,7 @@ if codigo == st.secrets["codigo_familiar"]:
   minutes_df = pd.DataFrame({'Minute': [str(i).zfill(2) for i in range(60)]})
 
   #----- Creación de las 2 pestañas
-  tab1, tab2 = st.tabs(["Bot de Compra", "Wallet"])
+  tab1, tab2, tab3 = st.tabs(["Bot de Compra", "Wallet", "$ Estatus Wallet"])
   
   with tab1:
     st.subheader("Programación de Orden de Compra")
@@ -235,13 +235,7 @@ if codigo == st.secrets["codigo_familiar"]:
     wallet_for_screen['Precio Prom Num'] = pd.to_numeric(wallet_for_screen['Precio Prom'], errors='coerce')
     wallet_for_screen['Total Posicion'] = wallet_for_screen['total'] * wallet_for_screen['Precio Prom Num']
     wallet_for_screen = wallet_for_screen[['id','total', 'Precio Prom', 'Total Posicion']]
-    # wallet_for_screen[['Precio Prom']].apply(pd.to_numeric)
-    # symbols = 
-    # for symbol in df['symbol']:
-    #     symbol_info = spotapi.get_symbol_ticker(symbol)
-      
-      
-      # wallet_for_screen['Inversion'] = wallet_for_screen['total'] * wallet_for_screen['Precio Prom']
+    
     
     st.dataframe(wallet_for_screen, width=800)
     
@@ -261,53 +255,12 @@ if codigo == st.secrets["codigo_familiar"]:
         orden_venta(symbol_for_sell, total_disponible)
 
 
-  #   #----determinar el valor de las ordenes y precio promedio
-  #   response = spotapi.v4_query_account_trade_list()
-  #   if isinstance(response, tuple) and len(response) > 0:
-  #       response = response[0]
-  #   orders_data = response.get('data', {})
-    
-    
-  #   orders = pd.DataFrame(orders_data)
-  #   orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
-  #   symbol_for_sell = symbol_for_sell + '_USDT'
-  #   orders = orders[(orders['symbol']==symbol_for_sell) & (orders['side']=='buy')]
-  #   orders['Total Price'] = orders['notional'] + orders['fee']
-  #   orders = orders.groupby(by=['symbol'], as_index=False).agg({'size': 'sum', 'Total Price': 'sum'})
-  #   orders['Precio Prom Compra'] = orders['Total Price'] / orders['size']
-  #   Precio_promedio = orders['Precio Prom Compra'].values[0]
-  #   Precio_promedio_pantalla = str("{:,.15f}".format(Precio_promedio))
-  #   st.subheader('Precio Promedio de compra de '+ symbol_for_sell)
-  #   st.subheader(Precio_promedio_pantalla)
-
-  #   if st.button('Vender'):
-  #     spotapi.post_submit_order(symbol=symbol_for_sell, side="sell", type="market", size=total_available)
-      
-  #     # spotapi.post_submit_order(symbol=symbol_for_sell, side="sell", type="market", size=
-  #     #-----
 
 
 
 
-  # # with tab3:
-  # #   st.subheader("Valor de la cartera")
-  # #   response = spotapi.get_wallet()
-  # #   if isinstance(response, tuple) and len(response) > 0:
-  # #     response = response[0]
-  # #   wallet_data = response.get('data', {}).get('wallet', [])
-  # #   columns = ['id', 'name', 'available', 'frozen', 'total']
-  # #   wallet = pd.DataFrame(wallet_data, columns=columns)
-  # #   wallet[['available', 'total']] = wallet[['available', 'total']].apply(pd.to_numeric)
-  # #   st.table(wallet)
-    
-  # #   total_available = wallet[wallet['id']==symbol_wallet]
-  # #   total_available = total_available['available'].values[0]
-  # #   total_available = str("{:,.2f}".format(total_available))
-  # #   st.write(total_available)
-
-  # #   if st.button("Vender: "+ symbol_wallet):
-  # #     st.write("Vendiendo a valor de mercado")
-  # #     # spotapi.post_submit_order(symbol="CHONKY_USDT", side="sell", type="market", qty=total_available)
-    
-    
-    
+  with tab3:
+    st.subheader("Estatus financiero de la cartera")
+    wallet_value = wallet_for_screen.copy()
+    symbols_for_tickers = wallet_value['id'].unique()
+    st.write(symbols_for_tickers)
