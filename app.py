@@ -263,11 +263,11 @@ if codigo == st.secrets["codigo_familiar"]:
     st.subheader("Estatus financiero de la cartera")
     wallet_value = wallet_for_screen.copy()
     
-    st.write(wallet_value)
-
+    symbols_for_tickers = wallet_value['id'].unique()
+    
     last_prices = []
     
-    for symbol in wallet_value['id']:
+    for symbol in symbols_for_tickers:
         try:
             # Fetch ticker information for the current symbol
             response_tuple = spotapi.get_symbol_ticker(symbol)
@@ -285,11 +285,11 @@ if codigo == st.secrets["codigo_familiar"]:
             else:
                 # If response_tuple is empty, append None
                 last_prices.append(None)
-        except spotapi.APIException as e:
-            st.write(f"Error fetching data for symbol {symbol}: {e}")
+        except Exception as e:
+            print(f"Error fetching data for symbol {symbol}: {e}")
             # If an exception occurs, append None
             last_prices.append(None)
     
     # Add the list of last prices as a new column to the DataFrame
-    symbols_for_tickers['last_price'] = last_prices
-    st.write(symbols_for_tickers)
+    wallet_value['last_price'] = last_prices
+st.write(symbols_for_tickers)
