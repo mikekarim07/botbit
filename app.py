@@ -264,7 +264,7 @@ if codigo == st.secrets["codigo_familiar"]:
     wallet_value = wallet_for_screen.copy()
     wallet_value.rename(columns={'id': 'symbol'}, inplace=True)
     symbols_for_tickers = wallet_value['symbol'].unique()
-    
+    st.dataframe(symbols_for_tickers)
     last_prices = []
     
     for symbol in symbols_for_tickers['symbol']:
@@ -286,7 +286,7 @@ if codigo == st.secrets["codigo_familiar"]:
                 # If response_tuple is empty, append None
                 last_prices.append(None)
         except spotapi.APIException as e:
-            print(f"Error fetching data for symbol {symbol}: {e}")
+            st.write(f"Error fetching data for symbol {symbol}: {e}")
             # If an exception occurs, append None
             last_prices.append(None)
     
