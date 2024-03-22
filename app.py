@@ -3,6 +3,8 @@ import pandas as pd
 from bitmart.api_spot import APISpot
 from datetime import datetime
 import time
+import os
+from supabase import create_client, Client
 
 st.set_page_config(
     page_title="Bot para operar en Bitmart 1.0",
@@ -261,5 +263,89 @@ if codigo == st.secrets["codigo_familiar"]:
 
   with tab3:
     st.subheader("Estatus financiero de la cartera")
-    wallet_value = wallet_for_screen.copy()
+    response_orders = spotapi.v4_query_account_trade_list()
+    if isinstance(response_orders, tuple) and len(response_orders) > 0:
+        response = response_orders[0]
+    orders_data = response.get('data', {})
     
+    aggregation_functions = {
+        'size': 'sum',
+        'notional': 'sum',
+        'fee': 'sum',
+        'createTime': 'max',
+        'updateTime': 'max'
+    }
+    
+    orders = pd.DataFrame(orders_data)
+    orders[['tradeId', 'orderId', 'clientOrderId', 'price', 'size', 'notional', 'fee', 'createTime', 'updateTime']] = orders[['tradeId', 'orderId', 'clientOrderId', 'price', 'size', 'notional', 'fee', 'createTime', 'updateTime']].apply(pd.to_numeric)
+    
+    orders = orders.groupby(['orderId', 'symbol', 'side', 'orderMode', 'type', 'feeCoinName', 'tradeRole']).agg(aggregation_functions).reset_index()
+    orders = orders.sort_values(by='createTime', ascending=True)
+    orders['supabaseId'] = (orders['orderId'].astype(str)) + '-' + (orders['side'].apply(lambda x: 1 if x == 'buy' else 2).astype(str))
+    orders['price'] = (orders['notional'] + orders['fee']) / orders['size']
+    
+    
+    
+    url = 'https://zwtizxyavggvwbodcyud.supabase.co'
+    key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3dGl6eHlhdmdndndib2RjeXVkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxMDg3NzQxOSwiZXhwIjoyMDI2NDUzNDE5fQ.EJtzIMnM6FQyRYSr74FUCzDrVHKedkBPO2ipeRur-vI'
+    supabase_client = create_client(url, key)
+    
+    # Obtén los orderId de la última consulta
+    order_ids = orders['supabaseId'].tolist()
+    
+    # Consulta la base de datos para verificar los orderId existentes
+    response = supabase_client.table('tbl_orders').select('supabaseId').execute()
+    
+    existing_order_ids = [order['supabaseId'] for order in response.data]
+    
+    # Encuentra los orderId que no están en la base de datos
+    new_order_ids = [order_id for order_id in order_ids if order_id not in existing_order_ids]
+    
+    # Filtra las órdenes nuevas para agregarlas a la base de datos
+    new_orders = orders[orders['supabaseId'].isin(new_order_ids)]
+    
+    # Agrega las órdenes nuevas a la base de datos
+    if not new_orders.empty:
+        supabase_client.table('tbl_orders').insert(new_orders.to_dict(orient='records')).execute()
+    
+    spb_orders = supabase_client.table('tbl_orders').select("*").execute()
+    total_orders = pd.DataFrame(spb_orders.data)
+    total_orders = total_orders.sort_values(by='createTime')
+    total_orders['totalInvested'] = total_orders['notional'] + total_orders['fee']
+    total_orders = total_orders[total_orders['side'] == 'buy']
+    total_orders = total_orders.groupby(['symbol', 'side']).agg({'size': 'sum', 'totalInvested': 'sum'})
+    total_orders['costo'] = total_orders['totalInvested'] / total_orders['size']
+    
+    
+    
+    response = spotapi.get_wallet()
+    if isinstance(response, tuple) and len(response) > 0:
+        response = response[0]
+    wallet_data = response.get('data', {}).get('wallet', [])
+    columns = ['id', 'name', 'available', 'frozen', 'total']
+    wallet = pd.DataFrame(wallet_data, columns=columns)
+    wallet[['available', 'total']] = wallet[['available', 'total']].apply(pd.to_numeric)
+    wallet = wallet[wallet['available'] > 0]
+    wallet_for_screen = wallet[['id','total']]
+    wallet_for_screen['id'] = wallet_for_screen['id'] + '_USDT'
+    wallet_for_screen = wallet_for_screen.fillna('0')
+    wallet_for_screen = wallet_for_screen.merge(total_orders, left_on='id', right_on='symbol', how='left')
+    wallet_for_screen['totalPosicion'] = wallet_for_screen['total'] * wallet_for_screen['costo']
+    wallet_for_screen = wallet_for_screen[['id', 'total', 'costo', 'totalPosicion']]
+    
+    
+    response_tickers = spotapi.get_v3_tickers()
+    if isinstance(response_tickers, tuple) and len(response_tickers) > 0:
+        response = response_tickers[0]
+    tickers_data = response.get('data', [])
+    cols_tickers = ['symbol', 'last', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+    tickers =pd.DataFrame(tickers_data, columns=cols_tickers)
+    tickers = tickers[['symbol', 'last']]
+    
+    wallet_for_screen = wallet_for_screen.merge(tickers, left_on='id', right_on='symbol', how='left')
+    wallet_for_screen[['total', 'last']] = wallet_for_screen[['total', 'last']].apply(pd.to_numeric)
+    wallet_for_screen['valorActual'] = wallet_for_screen['total'] * wallet_for_screen['last']
+    wallet_for_screen['Ut/Perdida'] = wallet_for_screen['valorActual'] - wallet_for_screen['totalPosicion']
+    wallet_for_screen = wallet_for_screen[['id', 'total', 'costo', 'totalPosicion', 'last', 'valorActual', 'Ut/Perdida']]
+
+    st.dataframe(wallet_for_screen, width=1000)
