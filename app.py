@@ -349,6 +349,9 @@ if codigo == st.secrets["codigo_familiar"]:
     wallet_for_screen['Ut/Perdida'] = wallet_for_screen['valorActual'] - wallet_for_screen['totalPosicion']
     wallet_for_screen = wallet_for_screen[['id', 'total', 'precioProm', 'totalPosicion', 'ultimoPrecio', 'valorActual', 'Ut/Perdida']]
 
+    metrics = wallet_for_screen[(wallet_for_screen['totalPosicion'] > 0 and  wallet_for_screen['valorActual'] > 0)]
+    st.dataframe(metrics, width=1000)
+    
     st.dataframe(wallet_for_screen, width=1000)
 
     symbols_in_wallet = wallet['id'].unique()
@@ -366,5 +369,15 @@ if codigo == st.secrets["codigo_familiar"]:
     if st.button('Vender'):
         orden_venta(symbol_for_sell, total_disponible)
 
+
+
+
+
+
+
+
+
+
+    
   with tab3:
     st.subheader("Estatus financiero de la cartera")
