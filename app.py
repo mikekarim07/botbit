@@ -345,8 +345,9 @@ if codigo == st.secrets["codigo_familiar"]:
     wallet_for_screen = wallet_for_screen.merge(tickers, left_on='id', right_on='symbol', how='left')
     wallet_for_screen[['total', 'last']] = wallet_for_screen[['total', 'last']].apply(pd.to_numeric)
     wallet_for_screen['valorActual'] = wallet_for_screen['total'] * wallet_for_screen['last']
+    wallet_for_screen['ultimoPrecio'] = wallet_for_screen['last'].apply(lambda x: "{:,.15f}".format(x))
     wallet_for_screen['Ut/Perdida'] = wallet_for_screen['valorActual'] - wallet_for_screen['totalPosicion']
-    wallet_for_screen = wallet_for_screen[['id', 'total', 'precioProm', 'totalPosicion', 'last', 'valorActual', 'Ut/Perdida']]
+    wallet_for_screen = wallet_for_screen[['id', 'total', 'precioProm', 'totalPosicion', 'ultimoPrecio', 'valorActual', 'Ut/Perdida']]
 
     st.dataframe(wallet_for_screen, width=1000)
 
