@@ -203,58 +203,58 @@ if codigo == st.secrets["codigo_familiar"]:
     
   with tab2:
     st.subheader("Activos en cartera")
-    #----- Get Wallet
-    response = spotapi.get_wallet()
-    if isinstance(response, tuple) and len(response) > 0:
-      response = response[0]
-    wallet_data = response.get('data', {}).get('wallet', [])
-    columns = ['id', 'name', 'available', 'frozen', 'total']
-    wallet = pd.DataFrame(wallet_data, columns=columns)
-    wallet[['available', 'total']] = wallet[['available', 'total']].apply(pd.to_numeric)
-    wallet = wallet[wallet['available'] > 0]
-    wallet_for_screen = wallet[['id','total']]
+    # #----- Get Wallet
+    # response = spotapi.get_wallet()
+    # if isinstance(response, tuple) and len(response) > 0:
+    #   response = response[0]
+    # wallet_data = response.get('data', {}).get('wallet', [])
+    # columns = ['id', 'name', 'available', 'frozen', 'total']
+    # wallet = pd.DataFrame(wallet_data, columns=columns)
+    # wallet[['available', 'total']] = wallet[['available', 'total']].apply(pd.to_numeric)
+    # wallet = wallet[wallet['available'] > 0]
+    # wallet_for_screen = wallet[['id','total']]
 
-    #----- Get Orders
-    response_orders = spotapi.v4_query_account_trade_list()
-    if isinstance(response_orders, tuple) and len(response_orders) > 0:
-        response = response_orders[0]
-    orders_data = response.get('data', {})
+    # #----- Get Orders
+    # response_orders = spotapi.v4_query_account_trade_list()
+    # if isinstance(response_orders, tuple) and len(response_orders) > 0:
+    #     response = response_orders[0]
+    # orders_data = response.get('data', {})
     
-    orders = pd.DataFrame(orders_data)
-    orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
-    orders['total pagado'] = orders['notional'] + orders['fee']
-    orders = orders[orders['side']=='buy']
-    orders = orders.groupby(by=['symbol'], as_index=False).agg({'total pagado': 'sum', 'size': 'sum'})
-    orders['Precio Prom'] = orders['total pagado'] / orders['size']
-    orders['Precio Prom'] = orders['Precio Prom'].apply(lambda x: "{:,.15f}".format(x))
+    # orders = pd.DataFrame(orders_data)
+    # orders[['price', 'size', 'notional', 'fee']] = orders[['price', 'size', 'notional', 'fee']].apply(pd.to_numeric)
+    # orders['total pagado'] = orders['notional'] + orders['fee']
+    # orders = orders[orders['side']=='buy']
+    # orders = orders.groupby(by=['symbol'], as_index=False).agg({'total pagado': 'sum', 'size': 'sum'})
+    # orders['Precio Prom'] = orders['total pagado'] / orders['size']
+    # orders['Precio Prom'] = orders['Precio Prom'].apply(lambda x: "{:,.15f}".format(x))
     
-    #----- Cross tables (Wallet & Orders) to get purchase average price
-    wallet_for_screen['id'] = wallet_for_screen['id'] + '_USDT'
+    # #----- Cross tables (Wallet & Orders) to get purchase average price
+    # wallet_for_screen['id'] = wallet_for_screen['id'] + '_USDT'
     
-    wallet_for_screen = wallet_for_screen.merge(orders, left_on="id", right_on='symbol', how='left')
-    wallet_for_screen = wallet_for_screen[['id','total', 'Precio Prom']]
-    wallet_for_screen = wallet_for_screen.fillna(0)
-    wallet_for_screen['Precio Prom Num'] = pd.to_numeric(wallet_for_screen['Precio Prom'], errors='coerce')
-    wallet_for_screen['Total Posicion'] = wallet_for_screen['total'] * wallet_for_screen['Precio Prom Num']
-    wallet_for_screen = wallet_for_screen[['id','total', 'Precio Prom', 'Total Posicion']]
+    # wallet_for_screen = wallet_for_screen.merge(orders, left_on="id", right_on='symbol', how='left')
+    # wallet_for_screen = wallet_for_screen[['id','total', 'Precio Prom']]
+    # wallet_for_screen = wallet_for_screen.fillna(0)
+    # wallet_for_screen['Precio Prom Num'] = pd.to_numeric(wallet_for_screen['Precio Prom'], errors='coerce')
+    # wallet_for_screen['Total Posicion'] = wallet_for_screen['total'] * wallet_for_screen['Precio Prom Num']
+    # wallet_for_screen = wallet_for_screen[['id','total', 'Precio Prom', 'Total Posicion']]
     
     
-    st.dataframe(wallet_for_screen, width=800)
+    # st.dataframe(wallet_for_screen, width=800)
     
-    symbols_in_wallet = wallet['id'].unique()
-    symbol_for_sell = st.selectbox('Selecciona el par para vender', symbols_in_wallet)
+    # symbols_in_wallet = wallet['id'].unique()
+    # symbol_for_sell = st.selectbox('Selecciona el par para vender', symbols_in_wallet)
+    # # symbol_for_sell = symbol_for_sell + '_USDT'
+    
+    # total_available = wallet[wallet['id']==symbol_for_sell]
+    # total_available = total_available['available'].values[0]
+    # total_disponible = str(total_available)
+    # st.subheader('Total disponible de '+ symbol_for_sell)
+    # st.subheader(total_disponible)
     # symbol_for_sell = symbol_for_sell + '_USDT'
-    
-    total_available = wallet[wallet['id']==symbol_for_sell]
-    total_available = total_available['available'].values[0]
-    total_disponible = str(total_available)
-    st.subheader('Total disponible de '+ symbol_for_sell)
-    st.subheader(total_disponible)
-    symbol_for_sell = symbol_for_sell + '_USDT'
-    st.write(symbol_for_sell)
+    # st.write(symbol_for_sell)
       
-    if st.button('Vender'):
-        orden_venta(symbol_for_sell, total_disponible)
+    # if st.button('Vender'):
+    #     orden_venta(symbol_for_sell, total_disponible)
 
 
 
