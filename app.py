@@ -314,6 +314,7 @@ if codigo == st.secrets["codigo_familiar"]:
     total_orders = total_orders.groupby(['symbol', 'side']).agg({'size': 'sum', 'totalInvested': 'sum'})
     total_orders['costo'] = total_orders['totalInvested'] / total_orders['size']
     total_orders['costo'] = total_orders['costo'].round(15)
+    total_orders['precioProm'] = total_orders['costo'].apply(lambda x: "{:,.15f}".format(x))
     
     
     
@@ -330,7 +331,7 @@ if codigo == st.secrets["codigo_familiar"]:
     wallet_for_screen = wallet_for_screen.fillna('0')
     wallet_for_screen = wallet_for_screen.merge(total_orders, left_on='id', right_on='symbol', how='left')
     wallet_for_screen['totalPosicion'] = wallet_for_screen['total'] * wallet_for_screen['costo']
-    wallet_for_screen = wallet_for_screen[['id', 'total', 'costo', 'totalPosicion']]
+    wallet_for_screen = wallet_for_screen[['id', 'total', 'costo', 'precioProm', 'totalPosicion']]
     
     
     response_tickers = spotapi.get_v3_tickers()
@@ -345,7 +346,7 @@ if codigo == st.secrets["codigo_familiar"]:
     wallet_for_screen[['total', 'last']] = wallet_for_screen[['total', 'last']].apply(pd.to_numeric)
     wallet_for_screen['valorActual'] = wallet_for_screen['total'] * wallet_for_screen['last']
     wallet_for_screen['Ut/Perdida'] = wallet_for_screen['valorActual'] - wallet_for_screen['totalPosicion']
-    wallet_for_screen = wallet_for_screen[['id', 'total', 'costo', 'totalPosicion', 'last', 'valorActual', 'Ut/Perdida']]
+    wallet_for_screen = wallet_for_screen[['id', 'total', 'precioProm', 'totalPosicion', 'last', 'valorActual', 'Ut/Perdida']]
 
     st.dataframe(wallet_for_screen, width=1000)
 
