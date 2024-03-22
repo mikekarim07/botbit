@@ -355,7 +355,7 @@ if codigo == st.secrets["codigo_familiar"]:
     for index, row in metrics.iterrows():
     # Verificar si hay información en la fila y mostrar el widget correspondiente
         if not pd.isnull(row).all():
-            st.metric(label=row['symbol'], value=row['valorActual'], delta=row['Ut/Perdida'])
+            st.metric(label=row['id'], value=row['valorActual'], delta=row['Ut/Perdida'])
 
 
       
