@@ -350,6 +350,7 @@ if codigo == st.secrets["codigo_familiar"]:
     wallet_for_screen = wallet_for_screen[['id', 'total', 'precioProm', 'totalPosicion', 'ultimoPrecio', 'valorActual', 'Ut/Perdida']]
 
     metrics = wallet_for_screen[(wallet_for_screen['totalPosicion'] > 0) & (wallet_for_screen['valorActual'] > 0)]
+    metrics = metrics.reset_index(drop=True)
     st.dataframe(metrics, width=1000)
     
     st.dataframe(wallet_for_screen, width=1000)
