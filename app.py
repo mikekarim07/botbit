@@ -352,10 +352,22 @@ if codigo == st.secrets["codigo_familiar"]:
     metrics = wallet_for_screen[(wallet_for_screen['totalPosicion'] > 0) & (wallet_for_screen['valorActual'] > 0)]
     metrics = metrics.reset_index(drop=True)
 
-    for index, row in metrics.iterrows():
-    # Verificar si hay información en la fila y mostrar el widget correspondiente
+    num_widgets = len(metrics)
+    columns = st.columns(4)
+
+    # Iterar sobre cada fila del DataFrame filtrado y crear widgets en las columnas
+    for index, row in filtered_df.iterrows():
+        # Verificar si hay información en la fila y mostrar el widget correspondiente
         if not pd.isnull(row).all():
-            st.metric(label=row['id'], value=row['valorActual'], delta=row['Ut/Perdida'])
+            with columns[index % 4]:  # Organizar en 4 columnas
+                st.metric(label=row['symbol'], value=row['valorActual'], delta=row['Ut/Perdida'])
+
+
+      
+    # for index, row in metrics.iterrows():
+    # # Verificar si hay información en la fila y mostrar el widget correspondiente
+    #     if not pd.isnull(row).all():
+    #         st.metric(label=row['id'], value=row['valorActual'], delta=row['Ut/Perdida'])
 
 
       
