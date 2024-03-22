@@ -370,8 +370,11 @@ if codigo == st.secrets["codigo_familiar"]:
     # symbol_for_sell = symbol_for_sell + '_USDT'
     
     total_available = wallet[wallet['id']==symbol_for_sell]
+    st.write(total_available)
     total_available = total_available['available'].values[0]
+    st.write(total_available)
     total_disponible = str(total_available)
+    st.write(total_disponible)
     st.subheader('Total disponible de '+ symbol_for_sell)
     st.subheader(total_disponible)
     symbol_for_sell = symbol_for_sell + '_USDT'
