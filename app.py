@@ -351,6 +351,14 @@ if codigo == st.secrets["codigo_familiar"]:
 
     metrics = wallet_for_screen[(wallet_for_screen['totalPosicion'] > 0) & (wallet_for_screen['valorActual'] > 0)]
     metrics = metrics.reset_index(drop=True)
+
+    for index, row in metrics.iterrows():
+    # Verificar si hay información en la fila y mostrar el widget correspondiente
+    if not pd.isnull(row).all():
+        st.metric(label=row['symbol'], value=row['valorActual'], delta=row['Ut/Perdida'])
+
+
+      
     st.dataframe(metrics, width=1000)
     
     st.dataframe(wallet_for_screen, width=1000)
