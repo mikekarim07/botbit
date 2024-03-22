@@ -356,7 +356,7 @@ if codigo == st.secrets["codigo_familiar"]:
     columns = st.columns(4)
 
     # Iterar sobre cada fila del DataFrame filtrado y crear widgets en las columnas
-    for index, row in filtered_df.iterrows():
+    for index, row in metrics.iterrows():
         # Verificar si hay información en la fila y mostrar el widget correspondiente
         if not pd.isnull(row).all():
             with columns[index % 4]:  # Organizar en 4 columnas
