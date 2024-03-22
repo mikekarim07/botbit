@@ -313,6 +313,7 @@ if codigo == st.secrets["codigo_familiar"]:
     total_orders = total_orders[total_orders['side'] == 'buy']
     total_orders = total_orders.groupby(['symbol', 'side']).agg({'size': 'sum', 'totalInvested': 'sum'})
     total_orders['costo'] = total_orders['totalInvested'] / total_orders['size']
+    total_orders['costo'] = total_orders['costo'].round(15)
     
     
     
