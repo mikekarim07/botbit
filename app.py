@@ -261,8 +261,6 @@ if codigo == st.secrets["codigo_familiar"]:
 
 
 
-  with tab3:
-    st.subheader("Estatus financiero de la cartera")
     response_orders = spotapi.v4_query_account_trade_list()
     if isinstance(response_orders, tuple) and len(response_orders) > 0:
         response = response_orders[0]
@@ -364,3 +362,6 @@ if codigo == st.secrets["codigo_familiar"]:
       
     if st.button('Vender'):
         orden_venta(symbol_for_sell, total_disponible)
+
+  with tab3:
+    st.subheader("Estatus financiero de la cartera")
