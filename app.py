@@ -362,16 +362,6 @@ if codigo == st.secrets["codigo_familiar"]:
             with columns[index % 4]:  # Organizar en 4 columnas
                 st.metric(label=row['id'], value=round(row['valorActual'], 2), delta=round(row['Ut/Perdida'], 2))
 
-
-      
-    # for index, row in metrics.iterrows():
-    # # Verificar si hay información en la fila y mostrar el widget correspondiente
-    #     if not pd.isnull(row).all():
-    #         st.metric(label=row['id'], value=row['valorActual'], delta=row['Ut/Perdida'])
-
-
-      
-    st.dataframe(metrics, width=1000)
     
     st.dataframe(wallet_for_screen, width=1000)
 
